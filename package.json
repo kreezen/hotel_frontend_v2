@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "type": "module",
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.0.0",
@@ -18,9 +19,12 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
+    "@state-adapt/angular": "^2.0.5",
     "@state-adapt/core": "^2.0.5",
+    "@state-adapt/rxjs": "^2.0.5",
     "faker": "^6.6.6",
     "flowbite": "^2.2.1",
+    "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -29,7 +33,9 @@
     "@angular-devkit/build-angular": "^16.0.5",
     "@angular/cli": "~16.0.5",
     "@angular/compiler-cli": "^16.0.0",
+    "@types/faker": "^6.6.9",
     "@types/jasmine": "~4.3.0",
+    "@types/node": "^20.11.17",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

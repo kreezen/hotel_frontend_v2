@@ -1,0 +1,5 @@
+<ul>
+    <li *ngFor="let customer of customServ.cutomerPaginationStore.customerPagination$ | async; let i = index">
+        {{ customer.name }} ({{ customer.email }})
+    </li>
+</ul>

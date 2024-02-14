@@ -1,4 +1,3 @@
-import * as faker from 'faker';
 import { Customer } from '../entities/customer.entity';
 import { Invoice } from '../entities/invoice.entity';
 import { Task } from '../entities/task.entity';
@@ -6,35 +5,37 @@ import { Address } from '../entities/address.entity';
 
 export class CustomerGenerator {
     generateCustomers(count: number): Customer[] {
-        return Array.from({ length: count }).map(() => this.generateCustomer());
+        return Array.from({ length: count }).map((_, index) => this.generateCustomer(index));
     }
-    generateCustomer(): Customer {
+
+    generateCustomer(index: number): Customer {
         const address: Address = {
-            id: faker.datatype.number(),
-            street: faker.address.streetAddress(),
-            city: faker.address.city(),
-            zipcode: faker.address.zipCode()
+            id: index + 1, // Simple incremental ID 
+            street: `Sample Street ${index + 1}`,
+            city: `Sample City`,
+            zipcode: 12345 // Placeholder zipcode
         };
 
-        const invoices: Invoice[] = Array.from({ length: faker.datatype.number({ min: 1, max: 5 }) }).map(() => ({
-            id: faker.datatype.number(),
-            name: faker.commerce.productName(),
-            date: faker.date.past(),
-            isPaid: faker.datatype.boolean(),
-            sum: faker.datatype.number()
-        }));
+        const invoices: Invoice[] = Array.from({ length: Math.floor(Math.random() * 4) + 1 }) // 0-3 invoices
+            .map((_, invoiceIndex) => ({
+                id: index * 10 + invoiceIndex + 1, // Unique IDs based on customer index
+                name: `Invoice ${invoiceIndex + 1}`,
+                date: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000), // Random past date
+                isPaid: Math.random() > 0.5, // 50/50 chance paid/unpaid
+                sum: Math.random() * 1000 // Random sum under 1000
+            }));
 
-        // Similar Logic to generate Tasks
-        const tasks: Task[] = Array.from({ length: faker.datatype.number({ min: 0, max: 3 }) }).map(() => ({
-            id: faker.datatype.number(),
-            name: faker.lorem.sentence(3),
-            isDone: faker.datatype.boolean()
-        }));
+        const tasks: Task[] = Array.from({ length: Math.floor(Math.random() * 3) }) // 0-2 tasks
+            .map((_, taskIndex) => ({
+                id: index * 100 + taskIndex + 1, // Unique IDs based on customer index
+                name: `Task ${taskIndex + 1}`,
+                isDone: Math.random() > 0.5
+            }));
 
         return {
-            id: faker.datatype.number(),
-            name: faker.name.findName(),
-            email: faker.internet.email(),
+            id: index + 1,
+            name: `Customer ${index + 1}`,
+            email: `customer${index + 1}@example.com`,
             address,
             invoices,
             tasks

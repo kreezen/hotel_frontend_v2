@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { IApi } from '../interfaces/api.interface';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Customer } from '../entities/customer.entity';
 import { API_URL } from './config/api.config';
 import { HttpClient } from '@angular/common/http';

@@ -3,16 +3,27 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CustomerOverviewComponent } from './customer-overview/customer-overview.component';
+import { HttpClientModule } from '@angular/common/http';
+import { API_URL } from './data/api/config/api.config';
+import { defaultStoreProvider } from '@state-adapt/angular';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CustomerOverviewComponent,
+    HttpClientModule,
+    PaginationComponent
   ],
-  providers: [],
+  providers: [
+    defaultStoreProvider,
+    { provide: API_URL, useValue: "hey" }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
