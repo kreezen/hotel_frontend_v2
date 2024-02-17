@@ -1,6 +1,6 @@
-<pagination-controls (pageChange)="changeCurrentPage$.next($event)"></pagination-controls>
-<div class="page-size-select">
-    <label for="pageSize">Items per page:</label>
-    <input id="pageSize" [formControl]="pageSizeControl">
+<div class="flex items-center">
+    <pagination-controls (pageChange)="changeCurrentPage.next($event)"></pagination-controls>
+    <input type="number" id="pageSize" [formControl]="pageSizeControl" (ngModelChange)="changeItemsPerPage.next($event)"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Items per page" required style="max-width: 10%;" />
 </div>
-<h1>hhhhhhhhhhhh</h1>

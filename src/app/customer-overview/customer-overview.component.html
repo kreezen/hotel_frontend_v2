@@ -1,5 +1,29 @@
-<ul>
-    <li *ngFor="let customer of customServ.cutomerPaginationStore.customerPagination$ | async; let i = index">
-        {{ customer.name }} ({{ customer.email }})
-    </li>
-</ul>
+{{ paginationValues.totalItems}}
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Email
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Strasse
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Rechnungsname
+                </th>
+            </tr>
+        </thead>
+        <tbody class="divide-y dark:divide-gray-700 dark:divide-opacity-50">
+            <tr *ngFor="let customer of customers | paginate: paginationValues">
+                <td class="px-6 py-4"> {{ customer.name }} </td>
+                <td class="px-6 py-4"> {{ customer.email }} </td>
+                <td class="px-6 py-4"> {{ customer.address.street }} </td>
+                <td class="px-6 py-4"> {{ customer.invoices[0].name }} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

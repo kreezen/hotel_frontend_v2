@@ -31,10 +31,6 @@ const initState: CustomerState = {
 export class CustomerStoreService {
 
   apiService = inject(ApiService)
-  paginationService = inject(PaginationStoreService)
-
-  sourcePagination$ = new Source<number>('changeCurrenPage$');
-  sourceItemsPage$ = new Source<number>('changeItemsPage$');
 
   sourceCustomer$ = this.apiService.getAllCustomers()
     .pipe(
@@ -55,49 +51,19 @@ export class CustomerStoreService {
       toSource('[getCustomers] sourceCustomer$'),
     )
 
-  cutomerPaginationStore = adapt({
-    customerStore: initState,
-    paginationStore: {
-      currentPage: 1,
-      itemsPerPage: 10
-    }
-  }, {
-    adapter: {
-      loadCustomers: (state, newState) => {
-        return { ...state, customerStore: newState }
-      },
-      setCurrentP: (state, currentPage: number) => {
-        console.log('state', currentPage);
-        return { ...state, paginationStore: { ...state.paginationStore, currentPage } }
-      },
-      setItemsPerP: (state, itemsPerPage: number) => {
-        console.log('state', itemsPerPage);
-        return { ...state, paginationStore: { ...state.paginationStore, itemsPerPage } }
-      },
-      selectors: {
-        customerPagination: state => state.customerStore.customers
-          .slice((state.paginationStore.currentPage - 1) * state.paginationStore.itemsPerPage, state.paginationStore.itemsPerPage * state.paginationStore.currentPage)
-      }
-    },
-    sources: {
-      loadCustomers: this.sourceCustomer$,
-      setCurrentP: paginationSources.changeCurrentPage$,
-      setItemsPerP: paginationSources.changeItemsPerPage$
-    }
-  })
-
-  /* customerStore = adapt(initState, {
+  customerStore = adapt(initState, {
     adapter: {
       loadCustomers: (state, newState) => {
         return newState
       },
       selectors: {
-        showCustomers: state => state.customers
+        customers: state => state.customers,
+        customerArrlength: state => state.customers.length
       }
     },
     sources: {
       loadCustomers: this.sourceCustomer$
     }
-  }) */
+  })
 
 }

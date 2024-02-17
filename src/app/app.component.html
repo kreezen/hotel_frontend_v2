@@ -1,3 +1,10 @@
-<app-pagination></app-pagination>
-<app-customer-overview></app-customer-overview>
+<app-pagination (changeCurrentPage)="changeCurrentPage$.next($event)"
+    (changeItemsPerPage)="changeItemsPerPage$.next($event)"></app-pagination>
+<app-search></app-search>
+<app-filter-boxes (filterToggle)="filterToggle$.next($event)"></app-filter-boxes>
+<app-customer-overview [customers]="customers()!" [paginationValues]="{
+    currentPage: paginationState()!.currentPage,
+    itemsPerPage: paginationState()!.itemsPerPage,
+    totalItems: customers()!.length
+}"></app-customer-overview>
 <router-outlet></router-outlet>

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
-import { createAdapter, joinAdapters } from '@state-adapt/core';
 import { Source } from '@state-adapt/rxjs';
 
 export interface PageinationState {
@@ -13,6 +12,7 @@ const initPageState: PageinationState = {
   itemsPerPage: 10
 }
 
+// needed if shared state
 export const paginationSources = {
   changeCurrentPage$: new Source<number>('changeCurrenPage$'),
   changeItemsPerPage$: new Source<number>('changeItemsPerPage$')
@@ -24,6 +24,9 @@ export const paginationSources = {
 })
 export class PaginationStoreService {
 
+  changeCurrentPage$ = new Source<number>('changeCurrenPage$')
+  changeItemsPerPage$ = new Source<number>('changeItemsPerPage$')
+
   paginationStore = adapt(initPageState, {
     adapter: {
       setCurrentPage: (state, currentPage: number) => {
@@ -34,8 +37,8 @@ export class PaginationStoreService {
       }
     },
     sources: {
-      setCurrentPage: paginationSources.changeCurrentPage$,
-      setItemsPerPage: paginationSources.changeItemsPerPage$
+      setCurrentPage: this.changeCurrentPage$,
+      setItemsPerPage: this.changeItemsPerPage$
     }
   })
 }
