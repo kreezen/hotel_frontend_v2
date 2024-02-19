@@ -9,3 +9,8 @@ export const filterFunctions: FilterFunctions = {
     taskDone: customers => customers.filter(customer => customer.tasks.every(task => task.isDone)),
     invoicePaid: customers => customers.filter(customer => customer.invoices.every(invoice => invoice.isPaid)),
 };
+
+export const filterFunctions2: Record<string, (customers: Customer[]) => Customer[]> = {
+    taskDone: customers => customers.filter(customer => customer.tasks.every(task => task.isDone)),
+    invoicePaid: customers => customers.filter(customer => customer.invoices.every(invoice => invoice.isPaid)),
+};
