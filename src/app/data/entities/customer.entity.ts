@@ -10,3 +10,5 @@ export interface Customer {
     invoices: Array<Invoice>,
     tasks: Array<Task>
 }
+// TODO: tasks mit desc
+// invoices mit task und müssen auf kunden referenzieren

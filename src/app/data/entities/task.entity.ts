@@ -1,5 +1,6 @@
 export interface Task {
     id: number,
     isDone: boolean,
-    name: string
+    titel: string,
+    descreption: string
 }

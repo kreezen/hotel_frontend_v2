@@ -11,7 +11,16 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { SearchComponent } from './search/search.component';
 import { FilterBoxesComponent } from './filter-boxes/filter-boxes.component';
 import { FilteredCustomerService } from './shared-stores/filtered-customer.service';
+import { DrawerComponent } from './drawer/drawer.component';
+import { Routes } from '@angular/router';
 
+
+
+const routes: Routes = [
+  { path: 'customer-overview', loadChildren: () => import('./customer-overview/customer-overview.component').then(m => m.CustomerOverviewComponent) },
+  // { path: 'customer-tasks', loadChildren: () => import('./customer-tasks/customer-tasks.component').then(m => m.CustomerTasksComponent) },
+  // ...other routes
+];
 
 @NgModule({
   declarations: [
@@ -24,7 +33,8 @@ import { FilteredCustomerService } from './shared-stores/filtered-customer.servi
     HttpClientModule,
     PaginationComponent,
     SearchComponent,
-    FilterBoxesComponent
+    FilterBoxesComponent,
+    DrawerComponent
   ],
   providers: [
     defaultStoreProvider,
