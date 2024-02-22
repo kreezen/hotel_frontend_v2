@@ -9,20 +9,18 @@ import { defaultStoreProvider } from '@state-adapt/angular';
 import { FilteredCustomerService } from './shared-stores/filtered-customer.service';
 import { RouterModule, Routes } from '@angular/router';
 import { DrawerComponent } from './drawer/drawer.component';
-import { CustomerTaskEditComponent } from './customer-task-edit/customer-task-edit.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/customer-tasks', pathMatch: 'full' },
+  { path: '', redirectTo: '/customer-tasks/edit', pathMatch: 'full' },
   { path: 'customer-overview', loadComponent: () => import('./customer-overview-main/customer-overview-main.component').then(m => m.CustomerOverviewMainComponent) },
   { path: 'customer-tasks', loadComponent: () => import('./customer-task-overview-main/customer-task-overview-main.component').then(m => m.CustomerTaskOverviewMainComponent) },
-  // ...other routes
+  { path: 'customer-tasks/edit', loadComponent: () => import('./customer-task-edit/customer-task-edit.component').then(m => m.CustomerTaskEditComponent) }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerTaskEditComponent,
   ],
   imports: [
     BrowserModule,

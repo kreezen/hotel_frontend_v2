@@ -2,13 +2,14 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationService } from '../shared-stores/navigation.service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { RouterModule } from '@angular/router';
 
 
 
 @Component({
   selector: 'app-drawer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './drawer.component.html',
   styleUrls: ['./drawer.component.css']
 })

@@ -7,6 +7,7 @@ import { SearchService } from '../search/store/search.service';
 import { SearchComponent } from '../search/search.component';
 import { FilteredCustomerTaskStoreService } from '../shared-stores/filtered-customer-task-store.service';
 import { TaskStoreService } from '../customer-task-edit/store/task-store.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-customer-task-overview-main',
