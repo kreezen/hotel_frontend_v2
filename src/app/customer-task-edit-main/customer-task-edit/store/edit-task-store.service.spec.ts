@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TaskStoreService } from './task-store.service';
+import { TaskStoreService } from './edit-task-store.service';
 
 describe('TaskStoreService', () => {
   let service: TaskStoreService;

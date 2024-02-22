@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
-import { Source } from '@state-adapt/rxjs';
+import { Source, toSource } from '@state-adapt/rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Task } from 'src/app/data/entities/task.entity';
 
 const initTaskState: Task = {
@@ -13,8 +14,9 @@ const initTaskState: Task = {
 @Injectable({
   providedIn: 'root'
 })
-export class TaskStoreService {
-  taskClickedSource$ = new Source<Task>('[task edit] taskClickedSource$')
+export class EditTaskStoreService {
+  taskClickedSource2 = new BehaviorSubject<Task>(initTaskState)
+  taskClickedSource$ = this.taskClickedSource2.pipe(toSource('[task edit] taskClickedSource$'))
 
   taskStore = adapt(initTaskState, {
     adapter: {
@@ -22,13 +24,10 @@ export class TaskStoreService {
         console.log(newState)
         return newState
       },
-      selectors: {
-        task: state => state
-      }
     },
     sources: {
       taskClicked: this.taskClickedSource$
     }
   })
-  constructor() { }
+
 }

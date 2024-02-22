@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomerTaskOverviewComponent } from './customer-task-overview/customer-task-overview.component';
-import { CustomerTaskStoreService } from './customer-task-overview/store/customer-task-store.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SearchService } from '../search/store/search.service';
 import { SearchComponent } from '../search/search.component';
 import { FilteredCustomerTaskStoreService } from '../shared-stores/filtered-customer-task-store.service';
-import { TaskStoreService } from '../customer-task-edit/store/task-store.service';
-import { RouterModule } from '@angular/router';
-import { Subject, Subscription } from 'rxjs';
+import { EditTaskStoreService } from '../customer-task-edit-main/customer-task-edit/store/edit-task-store.service';
+import { CustomerTaskStoreService } from './customer-task-overview/store/customer-task-store.service';
+
+
 
 @Component({
   selector: 'app-customer-task-overview-main',
@@ -20,14 +20,11 @@ import { Subject, Subscription } from 'rxjs';
 export class CustomerTaskOverviewMainComponent {
   private searchService = inject(SearchService);
   private filteredTaskService = inject(FilteredCustomerTaskStoreService)
-  private taskStoreService = inject(TaskStoreService)
+  private editTaskStoreService = inject(EditTaskStoreService)
   private filteredCustomerTaskStore = this.filteredTaskService.filteredCustomerTaskStore
-  private sub: Subscription
+  private customerTaskStore = inject(CustomerTaskStoreService)
   customerTasks = toSignal(this.filteredCustomerTaskStore.filteredCustomerTasks$)
-  taskClicked$ = this.taskStoreService.taskClickedSource$
+  taskClicked$ = this.editTaskStoreService.taskClickedSource2
   searchChange$ = this.searchService.searchSource$
 
-  constructor() {
-    this.sub = this.filteredCustomerTaskStore.filteredCustomerTasks$.subscribe(console.log)
-  }
 }
