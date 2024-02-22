@@ -56,9 +56,9 @@ export class CustomerGenerator {
         const tasks: Task[] = Array.from({ length: Math.floor(Math.random() * 3) }) // 0-2 tasks
             .map((_, taskIndex) => ({
                 id: index * 100 + taskIndex + 1,
-                titel: this.generateTaskTitel()[Math.floor(Math.random() * this.generateTaskTitel.length)],
+                titel: this.generateTaskTitel()[Math.floor(Math.random() * this.generateTaskTitel().length)],
                 isDone: Math.random() > 0.5,
-                descreption: this.generateTaskDescription()[Math.floor(Math.random() * this.generateTaskDescription.length)] // Use descriptions
+                descreption: this.generateTaskDescription()[Math.floor(Math.random() * this.generateTaskDescription().length)] // Use descriptions
             }));
 
         return {

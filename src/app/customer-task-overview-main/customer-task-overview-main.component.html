@@ -1,0 +1,3 @@
+<app-search (searchTerm)="searchChange$.next($event)"></app-search>
+<app-customer-task-overview [customerTasks]="customerTasks()!"
+    (taskClicked)="taskClicked$.next($event)"></app-customer-task-overview>

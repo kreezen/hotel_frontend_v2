@@ -8,6 +8,7 @@ import { Source } from '@state-adapt/rxjs';
   providedIn: 'root'
 })
 export class SearchService {
+
   searchSource$ = new Source<string>('search$');
   searchStore = adapt("", {
     adapter: {

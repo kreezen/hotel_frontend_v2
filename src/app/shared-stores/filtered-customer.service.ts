@@ -1,10 +1,13 @@
 import { Injectable, inject } from '@angular/core';
-import { FilterService } from '../filter-boxes/store/filter.service';
-import { CustomerStoreService } from '../customer-overview/store/customer-store.service';
+
+
 import { joinStores } from '@state-adapt/rxjs';
-import { Filters } from '../filter-boxes/filters/filters.interface';
-import { filterFunctions, filterFunctions2 } from '../filter-boxes/filters/filter.functions';
+
 import { SearchService } from '../search/store/search.service';
+import { CustomerStoreService } from '../customer-overview-main/customer-overview/store/customer-store.service';
+import { Filters } from '../customer-overview-main/filter-boxes/filters/filters.interface';
+import { FilterService } from '../customer-overview-main/filter-boxes/store/filter.service';
+import { filterFunctions } from '../customer-overview-main/filter-boxes/filters/filter.functions';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +33,7 @@ export class FilteredCustomerService {
       const preFiltredCustomers = customers.filter(customers => customers.name.toLowerCase().includes(searchTerm.toLowerCase()));
       return activeFilters.reduce((preFiltredCustomers, [filterName, isActive]) => {
         if (!isActive) return customers;
-        return filterFunctions2[filterName](customers);
+        return filterFunctions[filterName](customers);
       }, preFiltredCustomers);
     }
   })();

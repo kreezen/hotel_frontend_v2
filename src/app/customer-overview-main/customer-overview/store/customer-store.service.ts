@@ -58,7 +58,8 @@ export class CustomerStoreService {
       },
       selectors: {
         customers: state => state.customers,
-        customerArrlength: state => state.customers.length
+        customerArrlength: state => state.customers.length,
+        tasks: state => state.customers.map(customer => customer.tasks).flatMap(task => task),
       }
     },
     sources: {

@@ -2,8 +2,8 @@ import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CustomerStoreService } from './store/customer-store.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { Customer } from '../data/entities/customer.entity';
+import { Customer } from 'src/app/data/entities/customer.entity';
+
 
 @Component({
   selector: 'app-customer-overview',

@@ -15,4 +15,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class DrawerComponent {
   private navigationService = inject(NavigationService)
   navigatiionPath = toSignal(this.navigationService.navigationStore.state$)
+
+
 }
