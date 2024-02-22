@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-customer-task-overview',
   standalone: true,
-  providers: [CustomerTaskStoreService],
+  /* providers: [CustomerTaskStoreService], */
   imports: [CommonModule, RouterModule],
   templateUrl: './customer-task-overview.component.html',
   styleUrls: ['./customer-task-overview.component.css']

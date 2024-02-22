@@ -3,15 +3,28 @@ import { adapt } from '@state-adapt/angular';
 import { Source } from '@state-adapt/rxjs';
 import { Task } from 'src/app/data/entities/task.entity';
 
+const initTaskState: Task = {
+  titel: "asd",
+  descreption: "",
+  isDone: false,
+  id: 0
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class TaskStoreService {
   taskClickedSource$ = new Source<Task>('[task edit] taskClickedSource$')
 
-  taskStore = adapt(null, {
+  taskStore = adapt(initTaskState, {
     adapter: {
-      taskClicked: (state, newState) => newState
+      taskClicked: (state, newState) => {
+        console.log(newState)
+        return newState
+      },
+      selectors: {
+        task: state => state
+      }
     },
     sources: {
       taskClicked: this.taskClickedSource$

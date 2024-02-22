@@ -8,6 +8,7 @@ import { SearchComponent } from '../search/search.component';
 import { FilteredCustomerTaskStoreService } from '../shared-stores/filtered-customer-task-store.service';
 import { TaskStoreService } from '../customer-task-edit/store/task-store.service';
 import { RouterModule } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-customer-task-overview-main',
@@ -17,17 +18,16 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./customer-task-overview-main.component.css']
 })
 export class CustomerTaskOverviewMainComponent {
-  private customerTaskStoreService = inject(CustomerTaskStoreService)
   private searchService = inject(SearchService);
   private filteredTaskService = inject(FilteredCustomerTaskStoreService)
   private taskStoreService = inject(TaskStoreService)
   private filteredCustomerTaskStore = this.filteredTaskService.filteredCustomerTaskStore
-
+  private sub: Subscription
   customerTasks = toSignal(this.filteredCustomerTaskStore.filteredCustomerTasks$)
   taskClicked$ = this.taskStoreService.taskClickedSource$
   searchChange$ = this.searchService.searchSource$
 
   constructor() {
-    this.filteredCustomerTaskStore.filteredCustomerTasks$.subscribe(console.log)
+    this.sub = this.filteredCustomerTaskStore.filteredCustomerTasks$.subscribe(console.log)
   }
 }

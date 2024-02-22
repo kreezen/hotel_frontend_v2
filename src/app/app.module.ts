@@ -9,6 +9,7 @@ import { defaultStoreProvider } from '@state-adapt/angular';
 import { FilteredCustomerService } from './shared-stores/filtered-customer.service';
 import { RouterModule, Routes } from '@angular/router';
 import { DrawerComponent } from './drawer/drawer.component';
+import { HeaderComponent } from './header/header.component';
 
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
     AppRoutingModule,
     HttpClientModule,
     DrawerComponent,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HeaderComponent
   ],
   providers: [
     defaultStoreProvider,

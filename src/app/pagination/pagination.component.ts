@@ -7,7 +7,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-pagination',
   standalone: true,
-  providers: [PaginationStoreService],
+  /* providers: [PaginationStoreService], */
   imports: [CommonModule, NgxPaginationModule, FormsModule, ReactiveFormsModule],
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.css']

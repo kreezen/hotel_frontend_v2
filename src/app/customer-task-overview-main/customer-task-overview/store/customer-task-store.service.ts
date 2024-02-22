@@ -21,6 +21,7 @@ export class CustomerTaskStoreService {
   private customerStore = inject(CustomerStoreService);
   customerTasksSource$ = this.customerStore.customerStore.tasks$.pipe(toSource('[deriving tasks] customerTasks$'))
 
+
   customerTaskStore = adapt(initState, {
     adapter: {
       loadTasks: (state, newState) => {
