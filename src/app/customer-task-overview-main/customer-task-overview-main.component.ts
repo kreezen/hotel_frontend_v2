@@ -24,7 +24,7 @@ export class CustomerTaskOverviewMainComponent {
   private filteredCustomerTaskStore = this.filteredTaskService.filteredCustomerTaskStore
   private customerTaskStore = inject(CustomerTaskStoreService)
   customerTasks = toSignal(this.filteredCustomerTaskStore.filteredCustomerTasks$)
-  taskClicked$ = this.editTaskStoreService.taskClickedSource2
+  taskClicked$ = this.editTaskStoreService.taskClickedSource
   searchChange$ = this.searchService.searchSource$
 
 }

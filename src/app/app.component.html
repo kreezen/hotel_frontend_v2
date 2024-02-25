@@ -1,3 +1,5 @@
 <app-header></app-header>
 <app-drawer></app-drawer>
+<app-toast-message (resetToast)="toastMessageStore.reset()" [toastMessage]="toastMessage()!"
+    [duration]="3000"></app-toast-message>
 <router-outlet></router-outlet>

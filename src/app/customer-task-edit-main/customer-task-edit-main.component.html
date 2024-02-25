@@ -1,1 +1,1 @@
-<app-customer-task-edit [task]="task()!"></app-customer-task-edit>
+<app-customer-task-edit (submitTask)="onSubmitTask($event)" [task]="task()!"></app-customer-task-edit>

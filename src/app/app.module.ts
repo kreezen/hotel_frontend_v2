@@ -12,7 +12,8 @@ import { DrawerComponent } from './drawer/drawer.component';
 import { HeaderComponent } from './header/header.component';
 import { CustomerTaskEditMainComponent } from './customer-task-edit-main/customer-task-edit-main.component';
 import { CustomerTaskStoreService } from './customer-task-overview-main/customer-task-overview/store/customer-task-store.service';
-
+import { ToastMessageComponent } from './toast-message/toast-message.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   { path: '', redirectTo: '/customer-tasks/edit', pathMatch: 'full' },
@@ -31,7 +32,9 @@ const routes: Routes = [
     HttpClientModule,
     DrawerComponent,
     RouterModule.forRoot(routes),
-    HeaderComponent
+    HeaderComponent,
+    BrowserAnimationsModule,
+    ToastMessageComponent
   ],
   providers: [
     defaultStoreProvider,

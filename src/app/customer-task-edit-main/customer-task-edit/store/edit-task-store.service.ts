@@ -15,8 +15,8 @@ const initTaskState: Task = {
   providedIn: 'root'
 })
 export class EditTaskStoreService {
-  taskClickedSource2 = new BehaviorSubject<Task>(initTaskState)
-  taskClickedSource$ = this.taskClickedSource2.pipe(toSource('[task edit] taskClickedSource$'))
+  taskClickedSource = new BehaviorSubject<Task>(initTaskState)
+  private taskClickedSource$ = this.taskClickedSource.pipe(toSource('[task edit] taskClickedSource$'))
 
   taskStore = adapt(initTaskState, {
     adapter: {
