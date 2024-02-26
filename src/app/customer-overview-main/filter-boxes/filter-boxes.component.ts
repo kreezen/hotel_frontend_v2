@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Filters } from './filters/filters.interface';
-import { FilterService } from './store/filter.service';
+import { FilterService } from './store/filter.store';
 
 @Component({
   selector: 'app-filter-boxes',

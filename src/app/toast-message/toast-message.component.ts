@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { ToastMessageState } from './store/toast-message-store.service';
+import { ToastMessageState } from './store/toast-message-store.store';
 
 
 @Component({

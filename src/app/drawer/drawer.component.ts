@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavigationService } from '../shared-stores/navigation.service';
+import { NavigationService } from '../shared-stores/navigation.store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterModule } from '@angular/router';
 
@@ -16,6 +16,5 @@ import { RouterModule } from '@angular/router';
 export class DrawerComponent {
   private navigationService = inject(NavigationService)
   navigatiionPath = toSignal(this.navigationService.navigationStore.state$)
-
 
 }

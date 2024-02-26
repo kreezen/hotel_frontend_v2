@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CustomerTaskStoreService } from './customer-task-store.service';
+import { CustomerTaskStoreService } from './customer-task-store.store';
 
 describe('CustomerTaskStoreService', () => {
   let service: CustomerTaskStoreService;

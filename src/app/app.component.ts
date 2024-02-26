@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { initFlowbite } from 'flowbite';
-import { ToastMessageStoreService } from './toast-message/store/toast-message-store.service';
+import { ToastMessageStoreService } from './toast-message/store/toast-message-store.store';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({

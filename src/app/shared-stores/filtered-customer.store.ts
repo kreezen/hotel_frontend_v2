@@ -3,10 +3,10 @@ import { Injectable, inject } from '@angular/core';
 
 import { joinStores } from '@state-adapt/rxjs';
 
-import { SearchService } from '../search/store/search.service';
-import { CustomerStoreService } from '../customer-overview-main/customer-overview/store/customer-store.service';
+import { SearchService } from '../search/store/search.store';
+import { CustomerStoreService } from '../customer-overview-main/customer-overview/store/customer-store.store';
 import { Filters } from '../customer-overview-main/filter-boxes/filters/filters.interface';
-import { FilterService } from '../customer-overview-main/filter-boxes/store/filter.service';
+import { FilterService } from '../customer-overview-main/filter-boxes/store/filter.store';
 import { filterFunctions } from '../customer-overview-main/filter-boxes/filters/filter.functions';
 
 @Injectable({

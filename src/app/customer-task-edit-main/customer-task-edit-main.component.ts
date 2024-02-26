@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EditTaskStoreService } from './customer-task-edit/store/edit-task-store.service';
+import { EditTaskStoreService } from './customer-task-edit/store/edit-task-store.store';
 import { CustomerTaskEditComponent } from './customer-task-edit/customer-task-edit.component';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Task } from '../data/entities/task.entity';
-import { ToastMessageStoreService } from '../toast-message/store/toast-message-store.service';
+import { ToastMessageStoreService, toastMessageSource$ } from '../toast-message/store/toast-message-store.store';
+import { CustomerTaskEditService } from './service/customer-task-edit.service';
 
 @Component({
   selector: 'app-customer-task-edit-main',
@@ -14,12 +15,12 @@ import { ToastMessageStoreService } from '../toast-message/store/toast-message-s
   styleUrls: ['./customer-task-edit-main.component.css']
 })
 export class CustomerTaskEditMainComponent {
+  private customerTaskEditService = inject(CustomerTaskEditService)
+  private messageSource$ = toastMessageSource$
 
-  private taskStoreService = inject(EditTaskStoreService)
-  private toastMessageService = inject(ToastMessageStoreService)
-  task = toSignal(this.taskStoreService.taskStore.state$)
+  task = this.customerTaskEditService.task
 
   onSubmitTask(task: Task) {
-    this.toastMessageService.messageSource$.next({ message: 'Task updated', type: 'success' })
+    this.messageSource$.next({ message: 'Task updated', type: 'success' })
   }
 }

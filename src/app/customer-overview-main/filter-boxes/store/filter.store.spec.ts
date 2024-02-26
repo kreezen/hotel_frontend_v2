@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DrawerstoreService } from './drawerstore.service';
+import { FilterService } from './filter.store';
 
-describe('DrawerstoreService', () => {
-  let service: DrawerstoreService;
+describe('FilterService', () => {
+  let service: FilterService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DrawerstoreService);
+    service = TestBed.inject(FilterService);
   });
 
   it('should be created', () => {

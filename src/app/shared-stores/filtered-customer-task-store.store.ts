@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { SearchService } from '../search/store/search.service';
+import { SearchService } from '../search/store/search.store';
 
 import { joinStores } from '@state-adapt/rxjs';
-import { CustomerTaskStoreService } from '../customer-task-overview-main/customer-task-overview/store/customer-task-store.service';
+import { CustomerTaskStoreService } from '../customer-task-overview-main/customer-task-overview/store/customer-task-store.store';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
 import { Source, toSource } from '@state-adapt/rxjs';
-import { CustomerStoreService } from 'src/app/customer-overview-main/customer-overview/store/customer-store.service';
+import { CustomerStoreService } from 'src/app/customer-overview-main/customer-overview/store/customer-store.store';
 import { Task } from 'src/app/data/entities/task.entity';
 
 export interface TaskState {

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { PaginationStoreService, paginationSources } from './store/pagination-store.service';
+import { PaginationStoreService, paginationSources } from './store/pagination-store.store';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({

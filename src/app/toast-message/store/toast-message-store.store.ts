@@ -14,12 +14,12 @@ const initToastMessageState: ToastMessageState = {
   type: 'success'
 }
 
+export const toastMessageSource$ = new Source<ToastMessageState>('[toasting msg] toastMessage$');
+
 @Injectable({
   providedIn: 'root'
 })
 export class ToastMessageStoreService {
-  messageSource$ = new Source<ToastMessageState>('[toasting msg] messageSource$');
-
   toastMessageStore = adapt(initToastMessageState, {
     adapter: {
       toastMsg: (state, newMessage) => {
@@ -27,8 +27,7 @@ export class ToastMessageStoreService {
       },
     },
     sources: {
-      toastMsg: this.messageSource$
+      toastMsg: toastMessageSource$
     }
   })
-  constructor() { }
 }

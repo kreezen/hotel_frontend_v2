@@ -11,12 +11,13 @@ const initTaskState: Task = {
   id: 0
 }
 
+export const taskClickedSource$ = new BehaviorSubject<Task>(initTaskState);
+
 @Injectable({
   providedIn: 'root'
 })
 export class EditTaskStoreService {
-  taskClickedSource = new BehaviorSubject<Task>(initTaskState)
-  private taskClickedSource$ = this.taskClickedSource.pipe(toSource('[task edit] taskClickedSource$'))
+  private taskClickedSource$ = taskClickedSource$.pipe(toSource('[task edit] taskClickedSource$'))
 
   taskStore = adapt(initTaskState, {
     adapter: {

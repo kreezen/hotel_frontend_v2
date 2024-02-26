@@ -8,12 +8,13 @@ const initFilterState: Filters = {
   invoicePaid: false
 }
 
+export const filterToggleSource$ = new Source<keyof Filters>('filterToggle$');
+
 @Injectable({
   providedIn: 'root'
 })
-export class FilterService {
 
-  filterToggleSource$ = new Source<keyof Filters>('filterToggle$');
+export class FilterService {
 
   filterStore = adapt(initFilterState, {
     adapter: {
@@ -23,7 +24,7 @@ export class FilterService {
       })
     },
     sources: {
-      toggleFilter: this.filterToggleSource$
+      toggleFilter: filterToggleSource$
     }
   });
 }
