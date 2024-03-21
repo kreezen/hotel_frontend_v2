@@ -12,10 +12,11 @@
                 <input type="text" id="subject" formControlName="title"
                     class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
                     placeholder="betreff" required> -->
-
-                <app-search-by [enabledSearch]="searchEnabled" (searchTerm)="onSearchChanges($event)"
-                    [selectedString]="selectedUser"></app-search-by>
-                <app-spinner [appSpinner]="usersState"></app-spinner>
+                <div class="relative">
+                    <app-search-by [enabledSearch]="searchEnabled" (searchTerm)="onSearchChanges($event)"
+                        [selectedString]="selectedUser"></app-search-by>
+                    <app-spinner class="absolute end-2.5 bottom-2.5" [appSpinner]="usersState"></app-spinner>
+                </div>
                 <app-selectable-list [users]="userSignal()!.users"
                     (userSelected)="onUserSelected($event)"></app-selectable-list>
             </div>
