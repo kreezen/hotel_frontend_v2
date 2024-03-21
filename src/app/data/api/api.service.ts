@@ -1,23 +1,40 @@
 import { Injectable, inject } from '@angular/core';
-import { IApi } from '../interfaces/api.interface';
-import { Observable, of, throwError } from 'rxjs';
-import { Customer } from '../entities/customer.entity';
+import { IApi } from './api.interface';
+import { Observable, map, tap } from 'rxjs';
+import { Customer } from '../../domain/customer/customer.entity';
 import { API_URL } from './config/api.config';
 import { HttpClient } from '@angular/common/http';
-import { CustomerGenerator } from '../dummy/customergenerator.dummydata';
+import { User } from 'src/app/domain/user/user.entity';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService implements IApi {
 
-  private apiUrl = inject(API_URL);
-  private genrateCustomer = new CustomerGenerator()
+  private baseUrl = inject(API_URL);
+  //private genrateCustomer = new CustomerGenerator()
 
   constructor(private http: HttpClient) { }
+  getUsersBySubstring(username: string): Observable<User[]> {
+    console.log(`${this.baseUrl}/users/search/${username}`)
+    return this.http.get<any[]>(`${this.baseUrl}/users/search/${username}`).pipe(
+      tap((res) => console.log(res)),
+    )
+  }
 
-  getAllCustomers(): Observable<Customer[]> {
-    return of(this.genrateCustomer.generateCustomers(100))
+  getAllCustomers(): Observable<Array<Customer>> {
+    console.log(`${this.baseUrl}/customers`)
+    return this.http.get<any[]>(`${this.baseUrl}/customers`).pipe(
+      tap((res) => console.log(res)),
+      map(
+        val => {
+          return val.map((customer) => {
+            return Customer.fromJson(customer);
+          })
+        }
+      ),
+    )
   }
   getCustomerByName(name: string): Observable<Customer> {
     throw new Error('Method not implemented.');

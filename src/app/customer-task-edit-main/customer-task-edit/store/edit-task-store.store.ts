@@ -2,14 +2,10 @@ import { Injectable } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
 import { Source, toSource } from '@state-adapt/rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { Task } from 'src/app/data/entities/task.entity';
+import { Task } from 'src/app/domain/activities/task.entity';
 
-const initTaskState: Task = {
-  titel: "asd",
-  descreption: "",
-  isDone: false,
-  id: 0
-}
+
+const initTaskState: Task = Task.initState()
 
 export const taskClickedSource$ = new BehaviorSubject<Task>(initTaskState);
 

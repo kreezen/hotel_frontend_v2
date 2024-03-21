@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ToastMessageState } from './store/toast-message-store.store';
+import { Subject, timer, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -23,7 +24,7 @@ import { ToastMessageState } from './store/toast-message-store.store';
     ])
   ]
 })
-export class ToastMessageComponent implements OnChanges {
+export class ToastMessageComponent implements OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['toastMessage']) {
       this.showNotification();
@@ -35,12 +36,30 @@ export class ToastMessageComponent implements OnChanges {
   @Output() resetToast = new EventEmitter<void>();
 
   toastState = ''; // Hide the toast initially
+  private destroy$ = new Subject<void>(); // For managing subscriptions
 
   showNotification() {
+    this.toastState = 'in';
+
+    timer(this.duration)
+      .pipe(takeUntil(this.destroy$)) // Complete on destroy or new toast
+      .subscribe({
+        complete: () => {  // Use complete callback
+          this.toastState = '';
+          this.resetToast.emit();
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(); // Emit on component destruction
+    this.destroy$.complete();
+  }
+  /* showNotification() {
     this.toastState = 'in'; // Show the toast
     setTimeout(() => {
       this.toastState = ''; // Hide the toast after 3 seconds
       this.resetToast.emit();
     }, this.duration);
-  }
+  } */
 }

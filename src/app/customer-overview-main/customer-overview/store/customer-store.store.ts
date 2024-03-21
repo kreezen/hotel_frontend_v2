@@ -4,7 +4,7 @@ import { Source, toSource } from '@state-adapt/rxjs';
 
 import { map, catchError, of } from 'rxjs';
 import { ApiService } from 'src/app/data/api/api.service';
-import { Customer } from 'src/app/data/entities/customer.entity';
+import { Customer } from 'src/app/domain/customer/customer.entity';
 import { PageinationState, PaginationStoreService, paginationSources } from 'src/app/pagination/store/pagination-store.store';
 
 
@@ -58,7 +58,7 @@ export class CustomerStoreService {
       selectors: {
         customers: state => state.customers,
         customerArrlength: state => state.customers.length,
-        tasks: state => state.customers.map(customer => customer.tasks).flatMap(task => task),
+        tasks: state => state.customers.map(customer => customer.activities).flatMap(task => task),
       }
     },
     sources: {

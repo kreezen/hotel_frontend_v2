@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CustomerTaskStoreService } from './store/customer-task-store.store';
-import { Task } from 'src/app/data/entities/task.entity';
 import { RouterModule } from '@angular/router';
+import { Task } from 'src/app/domain/activities/task.entity';
 
 @Component({
   selector: 'app-customer-task-overview',

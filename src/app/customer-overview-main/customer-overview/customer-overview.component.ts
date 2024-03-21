@@ -2,7 +2,7 @@ import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CustomerStoreService } from './store/customer-store.store';
-import { Customer } from 'src/app/data/entities/customer.entity';
+import { Customer } from 'src/app/domain/customer/customer.entity';
 
 export interface paginationOptions {
   currentPage: number,

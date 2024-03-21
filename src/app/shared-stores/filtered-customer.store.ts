@@ -30,7 +30,7 @@ export class FilteredCustomerService {
       const customers = state.customers.customers;
       const activeFilters = Object.entries(state.filters).filter(([key, value]) => value) as [keyof Filters, boolean][];
       const searchTerm = state.searchStore;
-      const preFiltredCustomers = customers.filter(customers => customers.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      const preFiltredCustomers = customers.filter(customers => customers.lastName.toLowerCase().includes(searchTerm.toLowerCase()));
       return activeFilters.reduce((preFiltredCustomers, [filterName, isActive]) => {
         if (!isActive) return customers;
         return filterFunctions[filterName](customers);

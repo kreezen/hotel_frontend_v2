@@ -7,8 +7,8 @@
 
 <dl class="text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
     <div class="flex flex-col pb-3" *ngFor="let task of customerTasks">
-        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">{{task.titel}}</dt>
-        <dd class="flex items-center justify-between"> <span class="text-lg font-semibold">{{task.descreption}}</span>
+        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">{{task.createdBy.username}}</dt>
+        <dd class="flex items-center justify-between"> <span class="text-lg font-semibold">{{task.description}}</span>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 (click)="taskClicked.emit(task)" routerLink="/customer-tasks/edit">
                 Edit
