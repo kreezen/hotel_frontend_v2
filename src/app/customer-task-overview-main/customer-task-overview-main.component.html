@@ -1,3 +1,6 @@
-<app-search (searchTerm)="searchChange$.next($event)"></app-search>
+<div class="flex">
+    <app-search (searchTerm)="searchChange$.next($event)"></app-search>
+    <app-create-actvities-dropdown></app-create-actvities-dropdown>
+</div>
 <app-customer-task-overview [customerTasks]="customerTasks()!"
     (taskClicked)="taskClicked$.next($event)"></app-customer-task-overview>

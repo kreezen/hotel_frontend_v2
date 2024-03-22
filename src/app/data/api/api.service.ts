@@ -16,6 +16,20 @@ export class ApiService implements IApi {
   //private genrateCustomer = new CustomerGenerator()
 
   constructor(private http: HttpClient) { }
+  getCustomerBySubstring(lastname: string): Observable<Customer[]> {
+    console.log(`${this.baseUrl}/customers/search/${lastname}`)
+    return this.http.get<any[]>(`${this.baseUrl}/customers/search/${lastname}`).pipe(
+
+      map(
+        val => {
+          return val.map((customer) => {
+            return Customer.fromJson(customer);
+          })
+        }
+      ),
+      tap((res) => console.log(res)),
+    )
+  }
   getUsersBySubstring(username: string): Observable<User[]> {
     console.log(`${this.baseUrl}/users/search/${username}`)
     return this.http.get<any[]>(`${this.baseUrl}/users/search/${username}`).pipe(
@@ -26,7 +40,6 @@ export class ApiService implements IApi {
   getAllCustomers(): Observable<Array<Customer>> {
     console.log(`${this.baseUrl}/customers`)
     return this.http.get<any[]>(`${this.baseUrl}/customers`).pipe(
-      tap((res) => console.log(res)),
       map(
         val => {
           return val.map((customer) => {
@@ -34,9 +47,8 @@ export class ApiService implements IApi {
           })
         }
       ),
+      tap((res) => console.log(res)),
     )
   }
-  getCustomerByName(name: string): Observable<Customer> {
-    throw new Error('Method not implemented.');
-  }
+
 }

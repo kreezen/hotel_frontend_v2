@@ -1,32 +1,30 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Task } from 'src/app/domain/activities/task.entity';
 import { DatepickerComponent } from 'src/app/shared-components/datepicker/datepicker.component';
 import { SearchByComponent } from 'src/app/shared-components/search-by/search-by.component';
-import { SearchByStoreService, userNameSearchSource$ } from 'src/app/shared-components/search-by/store/search-by-store.service';
-import { SelectableListComponent } from 'src/app/shared-components/selectable-list/selectable-list.component';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { User } from 'src/app/domain/user/user.entity';
 import { SpinnerComponent } from 'src/app/shared-components/spinner/spinner.component';
-
-
+import { SelectableListComponent } from 'src/app/shared-components/selectable-list/selectable-list.component';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Task } from 'src/app/domain/activities/task.entity';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { SearchByStoreService, customerNameSearchSource$, userNameSearchSource$ } from 'src/app/shared-components/search-by/store/search-by-store.service';
+import { Customer } from 'src/app/domain/customer/customer.entity';
 
 @Component({
-  selector: 'app-customer-task-edit',
+  selector: 'app-create-task',
   standalone: true,
   providers: [SearchByStoreService],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, DatepickerComponent, SearchByComponent, SelectableListComponent, SpinnerComponent],
-  templateUrl: './customer-task-edit.component.html',
-  styleUrls: ['./customer-task-edit.component.css']
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, DatepickerComponent, SearchByComponent, SpinnerComponent, SelectableListComponent],
+  templateUrl: './create-task.component.html',
+  styleUrls: ['./create-task.component.css']
 })
-export class CustomerTaskEditComponent implements OnInit {
+export class CreateTaskComponent {
   @Input() task: Task | null = null
   @Output() submitTask: EventEmitter<Task> = new EventEmitter<Task>()
-  selectedUser: string = ''
+  selectedCustomer: string = ''
   searchEnabled: boolean = true
-  usersState = inject(SearchByStoreService).searchByUserStore.state$
-  userSignal = toSignal(this.usersState)
+  customersState = inject(SearchByStoreService).searchByCustomerStore.state$
+  customerSignal = toSignal(this.customersState)
 
   private fb = new FormBuilder()
   taskForm: FormGroup = new FormGroup({})
@@ -63,7 +61,8 @@ export class CustomerTaskEditComponent implements OnInit {
   }
 
   onSearchChanges(event: string) {
-    userNameSearchSource$.next(event)
+    console.log(event)
+    customerNameSearchSource$.next(event)
   }
 
   disableSearchAfterSelection(timeout: number) {
@@ -73,9 +72,8 @@ export class CustomerTaskEditComponent implements OnInit {
     }, timeout)
   }
 
-  onUserSelected(user: any) {
+  onSelectedCustomer(customer: any) {
     this.disableSearchAfterSelection(200)
-    console.log(user)
-    this.selectedUser = (user as User).username
+    this.selectedCustomer = (customer as Customer).lastName
   }
 }

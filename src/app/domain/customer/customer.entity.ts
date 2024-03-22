@@ -15,18 +15,18 @@ export class Customer {
     constructor(
         id: string,
         activities: Activity[],
-        customerNumber: string,
-        customerType: CustomerType,
-        firstName: string,
-        lastName: string,
+        customernumber: string,
+        customertype: CustomerType,
+        firstname: string,
+        lastname: string,
         address: Address
     ) {
         this.id = id;
         this.activities = activities;
-        this.customerNumber = customerNumber;
-        this.customerType = customerType;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.customerNumber = customernumber;
+        this.customerType = customertype;
+        this.firstName = firstname;
+        this.lastName = lastname;
         this.address = address;
     }
 

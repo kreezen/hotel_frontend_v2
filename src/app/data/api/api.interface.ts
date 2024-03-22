@@ -4,6 +4,6 @@ import { User } from "src/app/domain/user/user.entity";
 
 export interface IApi {
     getAllCustomers(): Observable<Array<Customer>>
-    getCustomerByName(name: string): Observable<Customer>
+    getCustomerBySubstring(lastname: string): Observable<Array<Customer>>
     getUsersBySubstring(username: string): Observable<Array<User>>
 }

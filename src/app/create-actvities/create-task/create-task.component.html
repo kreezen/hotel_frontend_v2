@@ -1,7 +1,7 @@
 <section class="bg-white dark:bg-gray-900">
     <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
         <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Aufgabe
-            bearbeiten
+            erstellen
         </h2>
         <form action="#" class="space-y-8" [formGroup]="taskForm">
 
@@ -14,11 +14,11 @@
                     placeholder="betreff" required> -->
                 <div class="relative">
                     <app-search-by [enabledSearch]="searchEnabled" (searchTerm)="onSearchChanges($event)"
-                        placeholder="Username" [selectedString]="selectedUser"></app-search-by>
-                    <app-spinner class="absolute end-2.5 bottom-2.5" [appSpinner]="usersState"></app-spinner>
+                        [selectedString]="selectedCustomer" placeholder="Lastname"></app-search-by>
+                    <app-spinner class="absolute end-2.5 bottom-2.5" [appSpinner]="customersState"></app-spinner>
                 </div>
-                <app-selectable-list [items]="userSignal()!.users" keyToDisplay="username"
-                    (selectedItem)="onUserSelected($event)"></app-selectable-list>
+                <app-selectable-list [items]="customerSignal()!.customers" keyToDisplay="lastName"
+                    (selectedItem)="onSelectedCustomer($event)"></app-selectable-list>
             </div>
             <div class="sm:col-span-2">
                 <label for="message"

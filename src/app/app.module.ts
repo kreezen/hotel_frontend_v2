@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'customer-tasks/edit',
     loadComponent: () => import('./customer-task-edit-main/customer-task-edit-main.component').then(m => m.CustomerTaskEditMainComponent)
+  },
+  {
+    path: 'customer-tasks/create',
+    loadComponent: () => import('./create-actvities/create-actvities.component').then(m => m.CreateActvitiesComponent)
   }
 ];
 

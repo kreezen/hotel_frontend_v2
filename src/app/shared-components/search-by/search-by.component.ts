@@ -14,6 +14,7 @@ import { SearchByStoreService } from './store/search-by-store.service';
 })
 export class SearchByComponent {
   @Output() searchTerm = new EventEmitter<string>();
+  @Input() placeholder = '';
   @Input() enabledSearch = true;
   @Input() selectedString = '';
 

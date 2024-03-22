@@ -4,16 +4,26 @@ import { Source, toSource } from '@state-adapt/rxjs';
 
 import { BehaviorSubject, debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs';
 import { ApiService } from 'src/app/data/api/api.service';
+import { Customer } from 'src/app/domain/customer/customer.entity';
 import { User } from 'src/app/domain/user/user.entity';
 
-export const userNameSeachSource$ = new Source<string>('[search-by] userNameSource$');
+export const userNameSearchSource$ = new Source<string>('[search-by-user] userNameSource$');
+export const customerNameSearchSource$ = new Source<string>('[search-by-customer] customerNameSource$');
 /* export const userNameSeachSource$ = new BehaviorSubject<string>('');  */
-export interface SearchBy {
+export interface SearchByUser {
   users: Array<User>
 }
 
-const initSearchByState: SearchBy = {
+export interface SearchByCustomer {
+  customers: Array<Customer>
+}
+
+const initSearchByUserState: SearchByUser = {
   users: []
+}
+
+const initSearchByCustomerState: SearchByCustomer = {
+  customers: []
 }
 
 @Injectable({
@@ -21,19 +31,37 @@ const initSearchByState: SearchBy = {
 })
 export class SearchByStoreService {
   apiService = inject(ApiService);
-  users$ = userNameSeachSource$.pipe(
-    tap((userName) => console.log(userName.payload)),
+  users$ = userNameSearchSource$.pipe(
     debounceTime(500),
     distinctUntilChanged(),
     switchMap((userName) => this.apiService.getUsersBySubstring(userName.payload)),
     toSource('[search-by] users$'),
   )
-  searchByStore = adapt(initSearchByState, {
+
+  customers$ = customerNameSearchSource$.pipe(
+    debounceTime(500),
+    distinctUntilChanged(),
+    switchMap((lastname) => this.apiService.getCustomerBySubstring(lastname.payload)),
+    toSource('[search-by] users$'),
+  )
+
+  searchByUserStore = adapt(initSearchByUserState, {
     adapter: {
       users: (state, users) => ({ ...state, users }),
     },
     sources: {
       users: this.users$
+    }
+  })
+
+
+
+  searchByCustomerStore = adapt(initSearchByCustomerState, {
+    adapter: {
+      customers: (state, customers) => ({ ...state, customers }),
+    },
+    sources: {
+      customers: this.customers$
     }
   })
 }

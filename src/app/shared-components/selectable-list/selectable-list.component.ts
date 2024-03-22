@@ -2,6 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User } from 'src/app/domain/user/user.entity';
 
+interface SelectableItem {
+  [key: string]: any;
+}
+
 @Component({
   selector: 'app-selectable-list',
   standalone: true,
@@ -9,12 +13,13 @@ import { User } from 'src/app/domain/user/user.entity';
   templateUrl: './selectable-list.component.html',
   styleUrls: ['./selectable-list.component.css']
 })
-export class SelectableListComponent {
-  @Input() users: Array<User> = [];
-  @Output() userSelected = new EventEmitter<User>();
+export class SelectableListComponent<T extends SelectableItem> {
+  @Input() items: Array<T> = [];
+  @Input() keyToDisplay = ''
+  @Output() selectedItem = new EventEmitter<T>();
 
-  selectUser(user: User) {
-    this.userSelected.emit(user);
-    this.users = []
+  selectItem(item: T) {
+    this.selectedItem.emit(item);
+    this.items = []
   }
 }
