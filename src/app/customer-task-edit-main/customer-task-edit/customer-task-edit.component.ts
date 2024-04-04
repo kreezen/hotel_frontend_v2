@@ -9,8 +9,13 @@ import { SelectableListComponent } from 'src/app/shared-components/selectable-li
 import { toSignal } from '@angular/core/rxjs-interop';
 import { User } from 'src/app/domain/user/user.entity';
 import { SpinnerComponent } from 'src/app/shared-components/spinner/spinner.component';
+import { formatDate } from 'src/app/utils/time.date';
 
 
+const pepeuser = {
+  id: "a42d7ed2-2f70-42c8-be1c-e3d5b3ad20b2",
+  username: "pepeman3"
+}
 
 @Component({
   selector: 'app-customer-task-edit',
@@ -23,8 +28,9 @@ import { SpinnerComponent } from 'src/app/shared-components/spinner/spinner.comp
 export class CustomerTaskEditComponent implements OnInit {
   @Input() task: Task | null = null
   @Output() submitTask: EventEmitter<Task> = new EventEmitter<Task>()
-  selectedUser: string = ''
   searchEnabled: boolean = true
+  selectedUser: User = pepeuser
+
   usersState = inject(SearchByStoreService).searchByUserStore.state$
   userSignal = toSignal(this.usersState)
 
@@ -32,32 +38,34 @@ export class CustomerTaskEditComponent implements OnInit {
   taskForm: FormGroup = new FormGroup({})
 
   ngOnInit() {
+    this.disableSearchAfterSelection(200)
+    this.selectedUser = this.task?.assignedTo ?? pepeuser
     this.taskForm = this.createTaskForm(this.fb, this.task!)
+  }
+
+  formatDate(date: Date): string {
+    return formatDate(date);
   }
 
   createTaskForm(fb: FormBuilder, task: Task): FormGroup {
     return fb.group({
-      title: task.createdBy.username,
       description: task.description,
+      isCompleted: task.isCompleted,
+      dueDate: task.dueDate
     })
   }
 
   onSubmit() {
-    const user = {
-      id: 'wasd',
-      username: 'peter',
-    }
     const task: Task = {
-      createdBy: user,
-      id: 'kek',
+      createdBy: pepeuser,
+      customerId: this.task!.customerId,
       modifiedOn: new Date(),
-      modifiedBy: user,
-      assignedTo: user,
-      dueDate: new Date(),
-      createdOn: new Date(),
+      modifiedBy: pepeuser,
+      assignedTo: this.selectedUser!,
+      dueDate: this.taskForm.value.dueDate,
+      createdOn: this.task!.createdOn,
       description: this.taskForm.value.description,
-      isCompleted: this.task!.isCompleted,
-
+      isCompleted: this.taskForm.value.isCompleted,
     }
     this.submitTask.emit(task)
   }
@@ -73,9 +81,12 @@ export class CustomerTaskEditComponent implements OnInit {
     }, timeout)
   }
 
+  onDateChanged(date: string) {
+    this.taskForm.get('dueDate')?.setValue(date)
+  }
+
   onUserSelected(user: any) {
     this.disableSearchAfterSelection(200)
-    console.log(user)
-    this.selectedUser = (user as User).username
+    this.selectedUser = user as User
   }
 }

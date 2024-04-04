@@ -21,8 +21,7 @@ export class FilteredCustomerTaskStoreService {
       const searchTerm = state.searchTerm
       const tasks = state.customerTaskStore.tasks;
       return tasks.filter(task =>
-        task.description.toLowerCase().includes(searchTerm.toLowerCase())
-
+        task.assignedTo.username.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
   })()

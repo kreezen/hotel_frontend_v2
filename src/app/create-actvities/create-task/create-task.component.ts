@@ -4,11 +4,14 @@ import { DatepickerComponent } from 'src/app/shared-components/datepicker/datepi
 import { SearchByComponent } from 'src/app/shared-components/search-by/search-by.component';
 import { SpinnerComponent } from 'src/app/shared-components/spinner/spinner.component';
 import { SelectableListComponent } from 'src/app/shared-components/selectable-list/selectable-list.component';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Task } from 'src/app/domain/activities/task.entity';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CreateTask, Task } from 'src/app/domain/activities/task.entity';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SearchByStoreService, customerNameSearchSource$, userNameSearchSource$ } from 'src/app/shared-components/search-by/store/search-by-store.service';
 import { Customer } from 'src/app/domain/customer/customer.entity';
+import { User } from 'src/app/domain/user/user.entity';
+
+
 
 @Component({
   selector: 'app-create-task',
@@ -20,9 +23,13 @@ import { Customer } from 'src/app/domain/customer/customer.entity';
 })
 export class CreateTaskComponent {
   @Input() task: Task | null = null
-  @Output() submitTask: EventEmitter<Task> = new EventEmitter<Task>()
+  @Output() submitTask = new EventEmitter<CreateTask>()
   selectedCustomer: string = ''
+  selectedUser: string = ''
   searchEnabled: boolean = true
+
+  usersState = inject(SearchByStoreService).searchByUserStore.state$
+  userSignal = toSignal(this.usersState)
   customersState = inject(SearchByStoreService).searchByCustomerStore.state$
   customerSignal = toSignal(this.customersState)
 
@@ -30,39 +37,46 @@ export class CreateTaskComponent {
   taskForm: FormGroup = new FormGroup({})
 
   ngOnInit() {
-    this.taskForm = this.createTaskForm(this.fb, this.task!)
+    this.taskForm = this.createTaskForm(this.fb)
   }
 
-  createTaskForm(fb: FormBuilder, task: Task): FormGroup {
+  createTaskForm(fb: FormBuilder): FormGroup {
     return fb.group({
-      title: task.createdBy.username,
-      description: task.description,
+      customerId: ["", Validators.required],
+      dueDate: ["", Validators.required],
+      description: ["", Validators.required],
+      assignedTo: [null, Validators.required],
+      createdBy: [null, Validators.required],
     })
   }
 
-  onSubmit() {
-    const user = {
-      id: 'wasd',
-      username: 'peter',
-    }
-    const task: Task = {
-      createdBy: user,
-      id: 'kek',
-      modifiedOn: new Date(),
-      modifiedBy: user,
-      assignedTo: user,
-      dueDate: new Date(),
-      createdOn: new Date(),
-      description: this.taskForm.value.description,
-      isCompleted: this.task!.isCompleted,
-
-    }
-    this.submitTask.emit(task)
+  formControlByName(formcontrolName: string): AbstractControl<any, any> | null {
+    return this.taskForm.get(formcontrolName)
   }
 
-  onSearchChanges(event: string) {
-    console.log(event)
+  onDateChanged(date: string) {
+    this.formControlByName('dueDate')?.setValue(date)
+  }
+
+  onSubmit() {
+    if (this.taskForm.valid) {
+      const task: CreateTask = {
+        customerId: this.taskForm.value.customerId,
+        description: this.taskForm.value.description,
+        dueDate: this.taskForm.value.dueDate,
+        createdBy: this.taskForm.value.createdBy,
+        assignedTo: this.taskForm.value.assignedTo
+      }
+      this.submitTask.emit(task)
+    }
+  }
+
+  onSearchCustomerChanges(event: string) {
     customerNameSearchSource$.next(event)
+  }
+
+  onSearchUserChanges(event: string) {
+    userNameSearchSource$.next(event)
   }
 
   disableSearchAfterSelection(timeout: number) {
@@ -74,6 +88,16 @@ export class CreateTaskComponent {
 
   onSelectedCustomer(customer: any) {
     this.disableSearchAfterSelection(200)
-    this.selectedCustomer = (customer as Customer).lastName
+    const customerC = (customer as Customer)
+    this.selectedCustomer = customerC.lastName
+    this.formControlByName('customerId')?.setValue(customerC.id)
+  }
+  onUserSelected(user: any) {
+    this.disableSearchAfterSelection(200)
+    const userC = (user as User)
+    this.selectedUser = userC.username
+    this.formControlByName('assignedTo')?.setValue(userC)
+    //TODO change to real User
+    this.formControlByName('createdBy')?.setValue(userC)
   }
 }

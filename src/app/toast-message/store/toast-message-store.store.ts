@@ -8,7 +8,6 @@ export interface ToastMessageState {
   type: 'success' | 'error';
 }
 
-
 const initToastMessageState: ToastMessageState = {
   message: '',
   type: 'success'
@@ -19,6 +18,7 @@ export const toastMessageSource$ = new Source<ToastMessageState>('[toasting msg]
 @Injectable({
   providedIn: 'root'
 })
+
 export class ToastMessageStoreService {
   toastMessageStore = adapt(initToastMessageState, {
     adapter: {

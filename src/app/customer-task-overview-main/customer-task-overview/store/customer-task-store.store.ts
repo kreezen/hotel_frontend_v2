@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
-import { toSource } from '@state-adapt/rxjs';
+import { Source, toSource } from '@state-adapt/rxjs';
 import { CustomerStoreService } from 'src/app/customer-overview-main/customer-overview/store/customer-store.store';
+import { ApiService } from 'src/app/data/api/api.service';
 import { Task } from 'src/app/domain/activities/task.entity';
 
 
@@ -15,17 +16,20 @@ const initState: TaskState = {
   error: ""
 }
 
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerTaskStoreService {
-  private customerStore = inject(CustomerStoreService);
-  private customerTasksSource$ = this.customerStore.customerStore.tasks$.pipe(toSource('[deriving tasks] customerTasks$'))
+  private apiService = inject(ApiService);
+  private taskSource$ = this.apiService.getAllTasks().pipe(
+    toSource("[loading task] taskSource$")
+  )
 
   customerTaskStore = adapt(initState, {
     adapter: {
       loadTasks: (state, newState) => {
-        console.log(newState)
         return { ...state, tasks: newState }
       },
       selectors: {
@@ -33,7 +37,7 @@ export class CustomerTaskStoreService {
       }
     },
     sources: {
-      loadTasks: this.customerTasksSource$
+      loadTasks: this.taskSource$
     }
   });
 

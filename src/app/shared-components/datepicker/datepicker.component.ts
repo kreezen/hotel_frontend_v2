@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -9,14 +9,21 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.css']
 })
-export class DatepickerComponent {
-  @Output() dateChanged = new EventEmitter();
+export class DatepickerComponent implements OnInit {
+
+  @Output() dateChanged = new EventEmitter<string>();
+  @Input() displaDate = '';
   date: string = '';
+
+  ngOnInit(): void {
+    this.date = this.displaDate
+  }
 
   onDateChange(event: any) {
     this.date = event.target.value;
-    this.dateChanged.emit(this.date);
-    console.log(this.date)
+    const isoDate = new Date(this.date).toISOString()
+    this.dateChanged.emit(isoDate);
+    console.log(isoDate)
   }
 
 

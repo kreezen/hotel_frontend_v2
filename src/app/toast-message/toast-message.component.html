@@ -9,7 +9,7 @@
     <div class="ps-4 text-sm font-normal">{{toastMessage.message}}</div>
 </div> -->
 
-<div *ngIf="toastMessage.message != ''">
+<div *ngIf="toastMessage.message != ''" class="flex justify-center">
     <div id="toast"
         class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800"
         role="alert" [@toastAnimation]="toastState">

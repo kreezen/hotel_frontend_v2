@@ -1,6 +1,13 @@
 import { User } from "../user/user.entity";
 import { Activity } from "./activity.entity";
 
+export interface CreateTask {
+    customerId: string
+    description: string
+    assignedTo: User
+    dueDate: Date
+    createdBy: User
+}
 export class Task extends Activity {
 
     assignedTo: User
@@ -8,7 +15,7 @@ export class Task extends Activity {
     isCompleted: boolean
 
     constructor(
-        id: string,
+        customerId: string,
         createdOn: Date,
         modifiedOn: Date,
         createdBy: User,
@@ -18,7 +25,7 @@ export class Task extends Activity {
         dueDate: Date,
         isCompleted: boolean,
     ) {
-        super(id, description, createdOn, createdBy, modifiedOn, modifiedBy);
+        super(customerId, description, createdOn, createdBy, modifiedOn, modifiedBy);
         this.assignedTo = assignedTo;
         this.dueDate = dueDate;
         this.isCompleted = isCompleted;
@@ -26,7 +33,7 @@ export class Task extends Activity {
 
     static initState(): Task {
         return {
-            id: "",
+            customerId: "",
             createdOn: new Date(),
             modifiedOn: new Date(),
             createdBy: {
@@ -45,5 +52,19 @@ export class Task extends Activity {
             dueDate: new Date(),
             isCompleted: false
         }
+    }
+
+    static override fromJson(json: any): Task {
+        return new Task(
+            json.customerId,
+            new Date(json.createdOn),
+            new Date(json.modifiedOn),
+            User.fromJson(json.createdBy),
+            User.fromJson(json.modifiedBy),
+            json.description,
+            User.fromJson(json.assignedTo),
+            new Date(json.dueDate),
+            json.isCompleted
+        );
     }
 }

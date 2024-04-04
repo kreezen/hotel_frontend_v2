@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { selectedListItemSource$ } from './store/slectable-list-store.service';
+import { Task } from 'src/app/domain/activities/task.entity';
+import { Customer } from 'src/app/domain/customer/customer.entity';
 import { User } from 'src/app/domain/user/user.entity';
 
 interface SelectableItem {

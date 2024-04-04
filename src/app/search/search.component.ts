@@ -13,6 +13,7 @@ import { SearchService } from './store/search.store';
 })
 export class SearchComponent {
   @Output() searchTerm = new EventEmitter<string>();
+  @Input() placeholder = '';
   searchTermControl = new FormControl('');
 
   constructor() { }
