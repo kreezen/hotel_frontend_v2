@@ -4,6 +4,7 @@ import { Source } from '@state-adapt/rxjs';
 import { catchError, of, switchMap, tap } from 'rxjs';
 import { ApiService } from 'src/app/data/api/api.service';
 import { CreateTask } from 'src/app/domain/activities/task.entity';
+import { refreshSource$ } from 'src/app/shared-stores/reload.store';
 import { toastMessageSource$ } from 'src/app/toast-message/store/toast-message-store.store';
 
 export const createTaskSource$ = new Source<CreateTask>("[create task] createTaskSource$")
@@ -22,7 +23,9 @@ export class CreateTaskStoreService {
       return of('task went shit')
     }
     ),
-    tap(() =>
-      toastMessageSource$.next({ message: 'Task wurde erfolgreich erstellt', type: 'success' })),
+    tap(() => {
+      toastMessageSource$.next({ message: 'Task wurde erfolgreich erstellt', type: 'success' })
+      refreshSource$.next(true)
+    }),
   )
 }

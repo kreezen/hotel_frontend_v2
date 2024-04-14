@@ -24,7 +24,6 @@ export class CustomerTaskEditMainComponent implements OnInit {
   task = this.customerTaskEditService.task
 
   onSubmitTask(task: Task) {
-    console.log("yo update")
     updateTaskSource$.next(task)
   }
 }

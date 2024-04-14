@@ -1,6 +1,7 @@
 import { User } from "../user/user.entity";
 
 export class Activity {
+    id: string;
     customerId: string;
     description: string;
     createdOn: Date;
@@ -10,13 +11,15 @@ export class Activity {
 
     constructor(
         id: string,
+        customerId: string,
         description: string,
         createdOn: Date,
         createdBy: User,
         modifiedOn: Date,
         modifiedBy: User
     ) {
-        this.customerId = id;
+        this.id = id;
+        this.customerId = customerId;
         this.description = description;
         this.createdOn = createdOn;
         this.createdBy = createdBy;
@@ -27,6 +30,7 @@ export class Activity {
     static fromJson(json: any): Activity {
         return new Activity(
             json.id,
+            json.customerId,
             json.description,
             new Date(json.createdOn),
             User.fromJson(json.createdBy),

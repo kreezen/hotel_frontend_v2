@@ -13,8 +13,8 @@ import { formatDate } from 'src/app/utils/time.date';
 
 
 const pepeuser = {
-  id: "a42d7ed2-2f70-42c8-be1c-e3d5b3ad20b2",
-  username: "pepeman3"
+  id: "ed95fc89-dc5c-474b-97d7-bc00b23e3b8b",
+  username: "pepeman"
 }
 
 @Component({
@@ -57,6 +57,7 @@ export class CustomerTaskEditComponent implements OnInit {
 
   onSubmit() {
     const task: Task = {
+      id: this.task!.id,
       createdBy: pepeuser,
       customerId: this.task!.customerId,
       modifiedOn: new Date(),

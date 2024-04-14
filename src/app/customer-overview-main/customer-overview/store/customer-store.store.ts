@@ -2,10 +2,11 @@ import { Injectable, inject } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
 import { Source, toSource } from '@state-adapt/rxjs';
 
-import { map, catchError, of } from 'rxjs';
+import { map, catchError, of, switchMap } from 'rxjs';
 import { ApiService } from 'src/app/data/api/api.service';
 import { Customer } from 'src/app/domain/customer/customer.entity';
 import { PageinationState, PaginationStoreService, paginationSources } from 'src/app/pagination/store/pagination-store.store';
+import { refreshSource$ } from 'src/app/shared-stores/reload.store';
 
 
 export interface CustomerState {
@@ -23,6 +24,8 @@ const initState: CustomerState = {
   error: "",
 }
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,24 +34,31 @@ export class CustomerStoreService {
 
   apiService = inject(ApiService)
 
-  sourceCustomer$ = this.apiService.getAllCustomers()
-    .pipe(
-      map(
-        v => {
-          return {
-            ...initState,
-            customers: v
-          }
-        }
-      ),
-      catchError(error => {
-        return of({
-          ...initState,
-          error: error.message
-        });
-      }),
-      toSource('[getCustomers] sourceCustomer$'),
+  sourceCustomer$ =
+    refreshSource$.pipe(
+      switchMap(() => this.apiService.getAllCustomers()
+        .pipe(
+          map(
+            v => {
+              return {
+                ...initState,
+                customers: v
+              }
+            }
+          ),
+          catchError(error => {
+            return of({
+              ...initState,
+              error: error.message
+            });
+          }),
+          toSource('[getCustomers] sourceCustomer$'),
+        )),
     )
+
+  /* constructor() {
+    refreshSource$.next();
+  } */
 
   customerStore = adapt(initState, {
     adapter: {

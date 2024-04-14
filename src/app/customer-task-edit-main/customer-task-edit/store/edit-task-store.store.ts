@@ -4,6 +4,7 @@ import { Source, toSource } from '@state-adapt/rxjs';
 import { BehaviorSubject, catchError, of, switchMap, tap } from 'rxjs';
 import { ApiService } from 'src/app/data/api/api.service';
 import { Task } from 'src/app/domain/activities/task.entity';
+import { refreshSource$ } from 'src/app/shared-stores/reload.store';
 import { toastMessageSource$ } from 'src/app/toast-message/store/toast-message-store.store';
 
 
@@ -25,8 +26,12 @@ export class EditTaskStoreService {
       return of('task went shit')
     }
     ),
-    tap(() =>
-      toastMessageSource$.next({ message: 'Task wurde geupdatet', type: 'success' })),
+    tap((data) => {
+      console.log(data)
+      toastMessageSource$.next({ message: 'Task wurde geupdatet', type: 'success' })
+      refreshSource$.next(true)
+    }),
+
   )
 
   taskStore = adapt(initTaskState, {

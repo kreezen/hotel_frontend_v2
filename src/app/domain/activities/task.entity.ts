@@ -15,6 +15,7 @@ export class Task extends Activity {
     isCompleted: boolean
 
     constructor(
+        id: string,
         customerId: string,
         createdOn: Date,
         modifiedOn: Date,
@@ -25,7 +26,7 @@ export class Task extends Activity {
         dueDate: Date,
         isCompleted: boolean,
     ) {
-        super(customerId, description, createdOn, createdBy, modifiedOn, modifiedBy);
+        super(id, customerId, description, createdOn, createdBy, modifiedOn, modifiedBy);
         this.assignedTo = assignedTo;
         this.dueDate = dueDate;
         this.isCompleted = isCompleted;
@@ -33,6 +34,7 @@ export class Task extends Activity {
 
     static initState(): Task {
         return {
+            id: "",
             customerId: "",
             createdOn: new Date(),
             modifiedOn: new Date(),
@@ -56,6 +58,7 @@ export class Task extends Activity {
 
     static override fromJson(json: any): Task {
         return new Task(
+            json.id,
             json.customerId,
             new Date(json.createdOn),
             new Date(json.modifiedOn),
