@@ -13,8 +13,8 @@ import { formatDate } from 'src/app/utils/time.date';
 
 
 const pepeuser = {
-  id: "ed95fc89-dc5c-474b-97d7-bc00b23e3b8b",
-  username: "pepeman"
+  id: "1acee9b1-c71f-4156-9cd0-40ef7ac4f4f7",
+  username: "pepe"
 }
 
 @Component({

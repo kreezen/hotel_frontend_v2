@@ -23,13 +23,15 @@ export class EditTaskStoreService {
     switchMap((newState) => this.apiService.updateTask(newState.payload)),
     catchError(() => {
       toastMessageSource$.next({ message: 'Task konnte nicht geupdatet werden', type: 'error' })
-      return of('task went shit')
+      return of(Error('Couldnt update task'))
     }
     ),
     tap((data) => {
       console.log(data)
-      toastMessageSource$.next({ message: 'Task wurde geupdatet', type: 'success' })
-      refreshSource$.next(true)
+      if (!(data instanceof Error)) {
+        toastMessageSource$.next({ message: 'Task wurde geupdatet', type: 'success' })
+        refreshSource$.next(true)
+      }
     }),
 
   )

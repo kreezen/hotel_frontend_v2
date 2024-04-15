@@ -1,4 +1,4 @@
-<div
+<div *ngIf="items.length > 0"
     class="w-48 w-full max-h-96 overflow-y-auto text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
     <div *ngFor="let item of items">
         <button type="button" (click)="selectItem(item)"

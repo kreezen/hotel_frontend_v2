@@ -12,7 +12,10 @@
                     Strasse
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Rechnungsname
+                    Ort
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Kundennr.
                 </th>
             </tr>
         </thead>
@@ -21,7 +24,8 @@
                 <td class="px-6 py-4"> {{ customer.firstName }} </td>
                 <td class="px-6 py-4"> {{ customer.lastName }} </td>
                 <td class="px-6 py-4"> {{ customer.address.street }} </td>
-                <td class="px-6 py-4"> {{ customer.customerType }} </td>
+                <td class="px-6 py-4"> {{ customer.address.city}} </td>
+                <td class="px-6 py-4"> {{ customer.customerNumber }} </td>
             </tr>
         </tbody>
     </table>

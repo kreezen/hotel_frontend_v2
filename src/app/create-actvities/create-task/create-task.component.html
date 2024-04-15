@@ -4,10 +4,12 @@
             erstellen
         </h2>
         <form action="#" class="space-y-8" [formGroup]="taskForm">
-
+            <label for="datepicker"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">DueDate:</label>
             <app-datepicker (dateChanged)="onDateChanged($event)" class="w-full"></app-datepicker>
             <div>
-
+                <label for="customer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Kunde
+                    angeben:</label>
                 <div class="relative">
                     <app-search-by [enabledSearch]="searchEnabled" (searchTerm)="onSearchCustomerChanges($event)"
                         [selectedString]="selectedCustomer" placeholder="Customer Lastname"></app-search-by>
@@ -16,6 +18,8 @@
                 <app-selectable-list [items]="customerSignal()!.customers" keyToDisplay="lastName"
                     (selectedItem)="onSelectedCustomer($event)"></app-selectable-list>
 
+                <label for="user" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">User
+                    zuteilen:</label>
                 <div class="relative">
                     <app-search-by [enabledSearch]="searchEnabled" (searchTerm)="onSearchUserChanges($event)"
                         placeholder="Username" [selectedString]="selectedUser"></app-search-by>
@@ -26,16 +30,18 @@
             </div>
             <div class="sm:col-span-2">
                 <label for="message"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Beschreibung</label>
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Beschreibung:</label>
                 <textarea id="message" rows="6" formControlName="description"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Text..."></textarea>
             </div>
-            <button (click)="onSubmit()" type="submit" class="py-3 px-5 text-sm font-medium text-center text-black rounded-lg 
+            <div class="flex justify-center">
+                <button (click)="onSubmit()" type="submit" class="py-3 px-5 text-sm font-medium text-center text-black rounded-lg 
                            bg-blue-500 sm:w-fit hover:bg-blue-700 focus:ring-4 focus:outline-none 
                            focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Submit
-            </button>
+                    Submit
+                </button>
+            </div>
         </form>
     </div>
 </section>

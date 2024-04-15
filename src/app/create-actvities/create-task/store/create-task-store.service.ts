@@ -20,11 +20,12 @@ export class CreateTaskStoreService {
     ),
     catchError(() => {
       toastMessageSource$.next({ message: 'Task konnte nicht erstellt werden', type: 'error' })
-      return of('task went shit')
+      return of(Error('Couldnt create task'))
     }
     ),
-    tap(() => {
-      toastMessageSource$.next({ message: 'Task wurde erfolgreich erstellt', type: 'success' })
+    tap((data) => {
+      if (!(data instanceof Error))
+        toastMessageSource$.next({ message: 'Task wurde erfolgreich erstellt', type: 'success' })
       refreshSource$.next(true)
     }),
   )
