@@ -1,6 +1,8 @@
-<app-pagination (changeCurrentPage)="changeCurrentPage$.next($event)"
-    (changeItemsPerPage)="changeItemsPerPage$.next($event)"></app-pagination>
-<app-search placeholder="search by lastname" (searchTerm)="searchChange$.next($event)"></app-search>
+<div class="flex">
+    <app-search placeholder="search by lastname" (searchTerm)="searchChange$.next($event)"></app-search>
+    <app-pagination class="ml-auto" (changeCurrentPage)="changeCurrentPage$.next($event)"
+        (changeItemsPerPage)="changeItemsPerPage$.next($event)"></app-pagination>
+</div>
 <app-filter-boxes (filterToggle)="filterToggle$.next($event)"></app-filter-boxes>
 <app-customer-overview [customers]="customers()!" [paginationValues]="{
     currentPage: paginationState()!.currentPage,

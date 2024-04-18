@@ -10,6 +10,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { SearchByStoreService, customerNameSearchSource$, userNameSearchSource$ } from 'src/app/shared-components/search-by/store/search-by-store.service';
 import { Customer } from 'src/app/domain/customer/customer.entity';
 import { User } from 'src/app/domain/user/user.entity';
+import { UserAccStoreService } from 'src/app/header/user-acc/store/user-acc-store.service';
 
 
 
@@ -24,12 +25,13 @@ import { User } from 'src/app/domain/user/user.entity';
 export class CreateTaskComponent {
   @Input() task: Task | null = null
   @Output() submitTask = new EventEmitter<CreateTask>()
+  userAccSignal = toSignal(inject(UserAccStoreService).usersStore.selectedUser$)
   selectedCustomer: string = ''
   selectedUser: string = ''
   searchEnabled: boolean = true
 
-  usersState = inject(SearchByStoreService).searchByUserStore.state$
-  userSignal = toSignal(this.usersState)
+  usersSearchState = inject(SearchByStoreService).searchByUserStore.state$
+  userSearchSignal = toSignal(this.usersSearchState)
   customersState = inject(SearchByStoreService).searchByCustomerStore.state$
   customerSignal = toSignal(this.customersState)
 
@@ -59,6 +61,8 @@ export class CreateTaskComponent {
   }
 
   onSubmit() {
+    this.formControlByName('createdBy')?.setValue(this.userAccSignal()!)
+    console.log(this.taskForm.value)
     if (this.taskForm.valid) {
       const task: CreateTask = {
         customerId: this.taskForm.value.customerId,
@@ -97,7 +101,6 @@ export class CreateTaskComponent {
     const userC = (user as User)
     this.selectedUser = userC.username
     this.formControlByName('assignedTo')?.setValue(userC)
-    //TODO change to real User
-    this.formControlByName('createdBy')?.setValue(userC)
+
   }
 }

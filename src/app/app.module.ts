@@ -11,10 +11,10 @@ import { DrawerComponent } from './drawer/drawer.component';
 import { HeaderComponent } from './header/header.component';
 import { ToastMessageComponent } from './toast-message/toast-message.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SpinnerComponent } from './shared-components/spinner/spinner.component';
+import { ErrorFooterComponent } from './error-footer/error-footer.component';
+
 
 const routes: Routes = [
-  { path: '', redirectTo: '/customer-tasks/edit', pathMatch: 'full' },
   {
     path: 'customer-overview',
     loadComponent: () => import('./customer-overview-main/customer-overview-main.component').then(m => m.CustomerOverviewMainComponent)
@@ -30,12 +30,21 @@ const routes: Routes = [
   {
     path: 'customer-tasks/create',
     loadComponent: () => import('./create-actvities/create-actvities.component').then(m => m.CreateActvitiesComponent)
+  },
+  {
+    path: 'create/customer',
+    loadComponent: () => import('./create-customer/create-customer.component').then(m => m.CreateCustomerComponent)
+  },
+  {
+    path: 'create/user',
+    loadComponent: () => import('./create-user/create-user.component').then(m => m.CreateUserComponent)
   }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -45,7 +54,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HeaderComponent,
     BrowserAnimationsModule,
-    ToastMessageComponent
+    ToastMessageComponent,
+    ErrorFooterComponent
   ],
   providers: [
     defaultStoreProvider,

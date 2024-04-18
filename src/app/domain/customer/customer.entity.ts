@@ -11,6 +11,7 @@ export class Customer {
     firstName: string;
     lastName: string;
     address: Address;
+    email: string;
 
     constructor(
         id: string,
@@ -19,7 +20,8 @@ export class Customer {
         customertype: CustomerType,
         firstname: string,
         lastname: string,
-        address: Address
+        address: Address,
+        email: string
     ) {
         this.id = id;
         this.activities = activities;
@@ -28,6 +30,7 @@ export class Customer {
         this.firstName = firstname;
         this.lastName = lastname;
         this.address = address;
+        this.email = email
     }
 
     static fromJson(json: any): Customer {
@@ -38,7 +41,8 @@ export class Customer {
             json.customerType,
             json.firstName,
             json.lastName,
-            json.address
+            json.address,
+            json.email
         );
     }
 }

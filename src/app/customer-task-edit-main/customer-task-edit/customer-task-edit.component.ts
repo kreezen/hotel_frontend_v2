@@ -10,12 +10,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { User } from 'src/app/domain/user/user.entity';
 import { SpinnerComponent } from 'src/app/shared-components/spinner/spinner.component';
 import { formatDate } from 'src/app/utils/time.date';
-
-
-const pepeuser = {
-  id: "1acee9b1-c71f-4156-9cd0-40ef7ac4f4f7",
-  username: "pepe"
-}
+import { UserAccStoreService } from 'src/app/header/user-acc/store/user-acc-store.service';
 
 @Component({
   selector: 'app-customer-task-edit',
@@ -26,10 +21,11 @@ const pepeuser = {
   styleUrls: ['./customer-task-edit.component.css']
 })
 export class CustomerTaskEditComponent implements OnInit {
+  userAccSignal = toSignal(inject(UserAccStoreService).usersStore.selectedUser$)
   @Input() task: Task | null = null
   @Output() submitTask: EventEmitter<Task> = new EventEmitter<Task>()
   searchEnabled: boolean = true
-  selectedUser: User = pepeuser
+  selectedUser: User = { id: '', username: '' }
 
   usersState = inject(SearchByStoreService).searchByUserStore.state$
   userSignal = toSignal(this.usersState)
@@ -39,7 +35,7 @@ export class CustomerTaskEditComponent implements OnInit {
 
   ngOnInit() {
     this.disableSearchAfterSelection(200)
-    this.selectedUser = this.task?.assignedTo ?? pepeuser
+    this.selectedUser = this.task?.assignedTo ?? { id: '', username: '' }
     this.taskForm = this.createTaskForm(this.fb, this.task!)
   }
 
@@ -58,16 +54,17 @@ export class CustomerTaskEditComponent implements OnInit {
   onSubmit() {
     const task: Task = {
       id: this.task!.id,
-      createdBy: pepeuser,
+      createdBy: this.task!.createdBy,
       customerId: this.task!.customerId,
       modifiedOn: new Date(),
-      modifiedBy: pepeuser,
+      modifiedBy: this.userAccSignal()!,
       assignedTo: this.selectedUser!,
       dueDate: this.taskForm.value.dueDate,
       createdOn: this.task!.createdOn,
       description: this.taskForm.value.description,
       isCompleted: this.taskForm.value.isCompleted,
     }
+    console.log(task)
     this.submitTask.emit(task)
   }
 

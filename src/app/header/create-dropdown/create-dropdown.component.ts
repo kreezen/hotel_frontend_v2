@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-create-actvities-dropdown',
+  selector: 'app-create-dropdown',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './create-actvities-dropdown.component.html',
-  styleUrls: ['./create-actvities-dropdown.component.css']
+  templateUrl: './create-dropdown.component.html',
+  styleUrls: ['./create-dropdown.component.css']
 })
-export class CreateActvitiesDropdownComponent {
+export class CreateDropdownComponent {
 
 }

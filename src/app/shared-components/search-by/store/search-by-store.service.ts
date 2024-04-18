@@ -55,7 +55,6 @@ export class SearchByStoreService {
   })
 
 
-
   searchByCustomerStore = adapt(initSearchByCustomerState, {
     adapter: {
       customers: (state, customers) => ({ ...state, customers }),

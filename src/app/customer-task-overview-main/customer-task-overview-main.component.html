@@ -1,6 +1,6 @@
 <div class="flex justify-center">
     <app-search placeholder="search by name" (searchTerm)="searchChange$.next($event)"></app-search>
-    <app-create-actvities-dropdown></app-create-actvities-dropdown>
+
 </div>
 <app-customer-task-overview [customerTasks]="customerTasks()!"
     (taskClicked)="taskClicked$.next($event)"></app-customer-task-overview>

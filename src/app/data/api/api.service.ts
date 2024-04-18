@@ -6,6 +6,8 @@ import { API_URL } from './config/api.config';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/domain/user/user.entity';
 import { CreateTask, Task } from 'src/app/domain/activities/task.entity';
+import { CreateUser } from 'src/app/create-user/store/create-user-store.service';
+import { CreateCustomer } from 'src/app/create-customer/store/create-customer-store.service';
 
 
 @Injectable({
@@ -15,6 +17,39 @@ export class ApiService implements IApi {
 
   private baseUrl = inject(API_URL);
   constructor(private http: HttpClient) { }
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/users`).pipe(
+      map(
+        val => {
+          return val.map((user) => {
+            return User.fromJson(user);
+          })
+        }
+      ),
+      tap((res) => console.log(res)),
+    )
+  }
+
+  createUser(createUser: CreateUser): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}/users/create`, createUser).pipe(
+      map(
+        val => {
+          return User.fromJson(val)
+        }
+      ),
+      tap((res) => console.log(res)),
+    )
+  }
+  createCustomer(customer: CreateCustomer): Observable<Customer> {
+    return this.http.post<Customer>(`${this.baseUrl}/customers/create`, customer).pipe(
+      map(
+        val => {
+          return Customer.fromJson(val)
+        }
+      ),
+      tap((res) => console.log(res)),
+    )
+  }
 
   updateTask(task: Task): Observable<Task> {
     return this.http.post<Task>(`${this.baseUrl}/activities/task/update`, task).pipe(

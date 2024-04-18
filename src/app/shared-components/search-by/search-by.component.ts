@@ -19,7 +19,7 @@ export class SearchByComponent {
   @Input() selectedString = '';
 
   searchTermControl = new FormControl('');
-  user$ = inject(SearchByStoreService).users$;
+
   onSearch(searchTerm: string) {
     if (this.enabledSearch && searchTerm.length > 0) {
       this.searchTerm.emit(searchTerm);

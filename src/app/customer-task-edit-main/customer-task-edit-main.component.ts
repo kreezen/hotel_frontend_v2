@@ -1,7 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomerTaskEditComponent } from './customer-task-edit/customer-task-edit.component';
-import { toastMessageSource$ } from '../toast-message/store/toast-message-store.store';
 import { CustomerTaskEditService } from './service/customer-task-edit.service';
 import { Task } from '../domain/activities/task.entity';
 import { updateTaskSource$ } from './customer-task-edit/store/edit-task-store.store';
