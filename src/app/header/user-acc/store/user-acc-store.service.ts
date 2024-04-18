@@ -4,7 +4,7 @@ import { Source, toSource } from '@state-adapt/rxjs';
 import { switchMap, tap } from 'rxjs';
 import { ApiService } from 'src/app/data/api/api.service';
 import { User } from 'src/app/domain/user/user.entity';
-import { refreshSource$ } from 'src/app/shared-stores/reload.store';
+import { refreshSource$, refreshUserSource$ } from 'src/app/shared-stores/reload.store';
 
 export const selectedUserSource$ = new Source<User>('selectedUserSource$');
 
@@ -23,7 +23,7 @@ const initUserState: UserState = {
 })
 export class UserAccStoreService {
   private apiService = inject(ApiService)
-  getUsers$ = refreshSource$.pipe(
+  getUsers$ = refreshUserSource$.pipe(
     switchMap(() =>
       this.apiService.getAllUsers()
     ),

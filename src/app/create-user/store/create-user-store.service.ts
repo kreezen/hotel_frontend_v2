@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Source, getRequestSources, toSource } from '@state-adapt/rxjs';
 import { BehaviorSubject, Subject, catchError, of, switchMap, tap } from 'rxjs';
 import { ApiService } from 'src/app/data/api/api.service';
-import { refreshSource$ } from 'src/app/shared-stores/reload.store';
+import { refreshSource$, refreshUserSource$ } from 'src/app/shared-stores/reload.store';
 import { toastMessageSource$ } from 'src/app/toast-message/store/toast-message-store.store';
 
 export interface CreateUser {
@@ -27,7 +27,7 @@ export class CreateUserStoreService {
     tap((data) => {
       if (!(data instanceof Error)) {
         toastMessageSource$.next({ message: 'User erfolgreich erstellt', type: 'success' })
-        refreshSource$.next(true)
+        refreshUserSource$.next(true)
       }
     }),
   )
