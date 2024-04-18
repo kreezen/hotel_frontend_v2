@@ -55,11 +55,5 @@ export class ToastMessageComponent implements OnChanges, OnDestroy {
     this.destroy$.next(); // Emit on component destruction
     this.destroy$.complete();
   }
-  /* showNotification() {
-    this.toastState = 'in'; // Show the toast
-    setTimeout(() => {
-      this.toastState = ''; // Hide the toast after 3 seconds
-      this.resetToast.emit();
-    }, this.duration);
-  } */
+
 }

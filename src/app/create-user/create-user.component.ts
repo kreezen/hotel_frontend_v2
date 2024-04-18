@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreateUserStoreService, createUserSource$ } from './store/create-user-store.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-create-user',
@@ -14,9 +15,10 @@ export class CreateUserComponent {
   userForm: FormGroup;
   createUser$ = inject(CreateUserStoreService).createUser$
 
+
   constructor(private fb: FormBuilder) {
     this.userForm = this.createUserForm(this.fb)
-    this.createUser$.subscribe((user) => console.log(user))
+    const asd = toSignal(this.createUser$)
   }
 
   createUserForm(fb: FormBuilder): FormGroup {

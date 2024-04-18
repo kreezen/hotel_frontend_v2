@@ -12,11 +12,9 @@ import { initFlowbite } from 'flowbite';
   templateUrl: './customer-task-overview.component.html',
   styleUrls: ['./customer-task-overview.component.css']
 })
-export class CustomerTaskOverviewComponent implements AfterViewInit {
+export class CustomerTaskOverviewComponent {
   @Input() customerTasks: Task[] = [];
   @Output() taskClicked = new EventEmitter<Task>();
 
-  ngAfterViewInit() {
-    initFlowbite();
-  }
+
 }

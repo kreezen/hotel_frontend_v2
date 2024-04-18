@@ -9,7 +9,6 @@ export interface CreateUser {
   username: string;
 }
 
-
 export const createUserSource$ = new Source<CreateUser>("[create user] createUserSource$");
 @Injectable({
   providedIn: 'root'
@@ -30,5 +29,6 @@ export class CreateUserStoreService {
         refreshUserSource$.next(true)
       }
     }),
+    toSource('[created user] createUser$')
   )
 }

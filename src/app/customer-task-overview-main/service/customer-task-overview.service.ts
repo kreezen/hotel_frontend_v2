@@ -10,7 +10,6 @@ import { FilteredCustomerTaskStoreService } from 'src/app/shared-stores/filtered
 export class CustomerTaskOverviewService {
   private searchService = inject(SearchService);
   private filteredTaskService = inject(FilteredCustomerTaskStoreService)
-  private editTaskStoreService = inject(EditTaskStoreService)
   private filteredCustomerTaskStore = this.filteredTaskService.filteredCustomerTaskStore
   customerTasks = toSignal(this.filteredCustomerTaskStore.filteredCustomerTasks$)
   taskClicked$ = taskClickedSource$

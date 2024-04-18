@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CustomerTypePipe } from '../pipes/customer-type.pipe';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreateCustomer, CreateCustomerStoreService, createCustomerSource$ } from './store/create-customer-store.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 
 
@@ -20,7 +21,7 @@ export class CreateCustomerComponent {
 
   constructor(formsBuilder: FormBuilder) {
     this.customerFormGroup = this.createCustomerForm(formsBuilder)
-    this.createCustomer$.subscribe((customer) => console.log(customer))
+    const asd = toSignal(this.createCustomer$)
   }
 
   createCustomerForm(formsBuilder: FormBuilder): FormGroup<any> {

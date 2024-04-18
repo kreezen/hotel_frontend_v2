@@ -16,5 +16,4 @@ export class PaginationComponent {
   @Output() changeCurrentPage = new EventEmitter<number>();
   @Output() changeItemsPerPage = new EventEmitter<number>();
   pageSizeControl = new FormControl(1);
-
 }

@@ -4,6 +4,7 @@ import { CustomerTaskEditComponent } from './customer-task-edit/customer-task-ed
 import { CustomerTaskEditService } from './service/customer-task-edit.service';
 import { Task } from '../domain/activities/task.entity';
 import { updateTaskSource$ } from './customer-task-edit/store/edit-task-store.store';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-customer-task-edit-main',
@@ -12,15 +13,16 @@ import { updateTaskSource$ } from './customer-task-edit/store/edit-task-store.st
   templateUrl: './customer-task-edit-main.component.html',
   styleUrls: ['./customer-task-edit-main.component.css']
 })
-export class CustomerTaskEditMainComponent implements OnInit {
-  ngOnInit(): void {
-    this.customerTaskEditService.updateTask$.subscribe((task) => {
-      console.log("task updated", task)
-    })
-  }
-  private customerTaskEditService = inject(CustomerTaskEditService)
+export class CustomerTaskEditMainComponent {
 
-  task = this.customerTaskEditService.task
+
+
+  customerTaskEditService = inject(CustomerTaskEditService).updateTask$
+  task = inject(CustomerTaskEditService).task
+
+  constructor() {
+    const asd = toSignal(this.customerTaskEditService)
+  }
 
   onSubmitTask(task: Task) {
     updateTaskSource$.next(task)
