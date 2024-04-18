@@ -9,7 +9,7 @@ import { Source } from '@state-adapt/rxjs';
 })
 export class SearchService {
 
-  searchSource$ = new Source<string>('search$');
+  searchSource$ = new Source<string>('[search string] searchSource$');
   searchStore = adapt("", {
     adapter: {
       search: (state, searchTerm: string) => searchTerm

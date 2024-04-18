@@ -14,8 +14,8 @@ const initPageState: PageinationState = {
 
 // needed if shared state
 export const paginationSources = {
-  changeCurrentPage$: new Source<number>('changeCurrenPage$'),
-  changeItemsPerPage$: new Source<number>('changeItemsPerPage$')
+  changeCurrentPage$: new Source<number>('[pagination] changeCurrenPage$'),
+  changeItemsPerPage$: new Source<number>('[pagination] changeItemsPerPage$')
 }
 
 

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
 import { Source } from '@state-adapt/rxjs';
-import { Activity } from 'src/app/domain/activities/activity.entity';
 import { Task } from 'src/app/domain/activities/task.entity';
 import { Customer } from 'src/app/domain/customer/customer.entity';
 import { User, initUser } from 'src/app/domain/user/user.entity';

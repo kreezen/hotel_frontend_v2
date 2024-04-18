@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Source, getRequestSources } from '@state-adapt/rxjs';
+import { Source, getRequestSources, toSource } from '@state-adapt/rxjs';
 import { BehaviorSubject, Subject, catchError, of, switchMap, tap } from 'rxjs';
 import { ApiService } from 'src/app/data/api/api.service';
 import { refreshSource$ } from 'src/app/shared-stores/reload.store';
@@ -10,7 +10,7 @@ export interface CreateUser {
 }
 
 
-export const createUserSource$ = new Subject<CreateUser>();
+export const createUserSource$ = new Source<CreateUser>("[create user] createUserSource$");
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +18,7 @@ export class CreateUserStoreService {
 
   apiService = inject(ApiService);
   createUser$ = createUserSource$.pipe(
-    switchMap((user) => this.apiService.createUser(user)),
+    switchMap((user) => this.apiService.createUser(user.payload)),
     catchError(() => {
       toastMessageSource$.next({ message: 'User konnte nicht erstellt werden', type: 'error' })
       return of(Error('Couldnt create user'))
@@ -29,6 +29,6 @@ export class CreateUserStoreService {
         toastMessageSource$.next({ message: 'User erfolgreich erstellt', type: 'success' })
         refreshSource$.next(true)
       }
-    })
+    }),
   )
 }
