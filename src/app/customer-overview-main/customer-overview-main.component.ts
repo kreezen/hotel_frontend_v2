@@ -1,15 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PaginationComponent } from '../pagination/pagination.component';
-import { SearchComponent } from '../search/search.component';
 import { FilterBoxesComponent } from './filter-boxes/filter-boxes.component';
 import { CustomerOverviewComponent } from './customer-overview/customer-overview.component';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { PaginationStoreService } from '../pagination/store/pagination-store.store';
-import { SearchService } from '../search/store/search.store';
-import { FilteredCustomerService } from '../shared-stores/filtered-customer.store';
+import { FilteredCustomerService } from './store/filtered-customer.store';
 import { RouterLink } from '@angular/router';
 import { CustomerOverviewService } from './service/customer-overview.service';
+import { PaginationComponent } from '../shared-components/pagination/pagination.component';
+import { SearchComponent } from '../shared-components/search/search.component';
 
 @Component({
   selector: 'app-customer-overview-main',
@@ -29,7 +26,4 @@ export class CustomerOverviewMainComponent {
   changeItemsPerPage$ = this.customerOverviewService.changeItemsPerPage$
   paginationState = this.customerOverviewService.paginationState
 
-  constructor() {
-    console.log('CustomerOverviewMainComponent created')
-  }
 }

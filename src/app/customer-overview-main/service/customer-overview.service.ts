@@ -1,9 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { PaginationStoreService } from 'src/app/pagination/store/pagination-store.store';
-import { SearchService } from 'src/app/search/store/search.store';
-import { FilteredCustomerService } from 'src/app/shared-stores/filtered-customer.store';
+
+import { FilteredCustomerService } from 'src/app/customer-overview-main/store/filtered-customer.store';
 import { filterToggleSource$ } from '../filter-boxes/store/filter.store';
+import { PaginationStoreService } from 'src/app/shared-components/pagination/store/pagination-store.store';
+import { SearchService } from 'src/app/shared-components/search/store/search.store';
 
 @Injectable({
   providedIn: 'root'

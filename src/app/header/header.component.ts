@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DrawerComponent } from '../drawer/drawer.component';
+import { DrawerComponent } from './drawer/drawer.component';
 import { RouterLink } from '@angular/router';
 import { TitlesComponent } from './titles/titles.component';
 import { CreateDropdownComponent } from './create-dropdown/create-dropdown.component';

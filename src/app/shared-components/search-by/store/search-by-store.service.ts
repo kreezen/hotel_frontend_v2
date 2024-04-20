@@ -2,8 +2,9 @@ import { Injectable, inject } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
 import { Source, toSource } from '@state-adapt/rxjs';
 
-import { BehaviorSubject, debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs';
-import { ApiService } from 'src/app/data/api/api.service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { ApiService } from 'src/app/api/api.service';
+
 import { Customer } from 'src/app/domain/customer/customer.entity';
 import { User } from 'src/app/domain/user/user.entity';
 

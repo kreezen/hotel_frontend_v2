@@ -12,11 +12,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
   templateUrl: './create-actvities.component.html',
   styleUrls: ['./create-actvities.component.css']
 })
-export class CreateActvitiesComponent implements OnInit {
+export class CreateActvitiesComponent {
 
   createTask = inject(CreateTaskStoreService).createTask$
-  ngOnInit(): void {
-    const asd = toSignal(this.createTask)
+
+
+  constructor() {
+    const auto = toSignal(this.createTask)
   }
 
   onSubmitTask(task: CreateTask) {

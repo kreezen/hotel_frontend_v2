@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { adapt } from '@state-adapt/angular';
 import { Source } from '@state-adapt/rxjs';
 import { catchError, of, switchMap, tap } from 'rxjs';
-import { ApiService } from 'src/app/data/api/api.service';
+import { ApiService } from 'src/app/api/api.service';
+
 import { CreateTask } from 'src/app/domain/activities/task.entity';
 import { refreshSource$ } from 'src/app/shared-stores/reload.store';
 import { toastMessageSource$ } from 'src/app/toast-message/store/toast-message-store.store';

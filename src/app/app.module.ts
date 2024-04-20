@@ -4,14 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { API_BASE_URL, API_URL } from './data/api/config/api.config';
 import { defaultStoreProvider } from '@state-adapt/angular';
 import { RouterModule, Routes } from '@angular/router';
-import { DrawerComponent } from './drawer/drawer.component';
+import { DrawerComponent } from './header/drawer/drawer.component';
 import { HeaderComponent } from './header/header.component';
 import { ToastMessageComponent } from './toast-message/toast-message.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorFooterComponent } from './error-footer/error-footer.component';
+import { API_URL, API_BASE_URL } from './api/config/api.config';
 
 
 const routes: Routes = [
@@ -21,11 +21,11 @@ const routes: Routes = [
   },
   {
     path: 'customer-tasks',
-    loadComponent: () => import('./customer-task-overview-main/customer-task-overview-main.component').then(m => m.CustomerTaskOverviewMainComponent)
+    loadComponent: () => import('./task-overview-main/task-overview-main.component').then(m => m.TaskOverviewMainComponent)
   },
   {
     path: 'customer-tasks/edit',
-    loadComponent: () => import('./customer-task-edit-main/customer-task-edit-main.component').then(m => m.CustomerTaskEditMainComponent)
+    loadComponent: () => import('./task-edit-main/task-edit-main.component').then(m => m.TaskEditMainComponent)
   },
   {
     path: 'customer-tasks/create',

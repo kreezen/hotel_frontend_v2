@@ -1,11 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
-import { Source, toSource } from '@state-adapt/rxjs';
-
+import { toSource } from '@state-adapt/rxjs';
 import { map, catchError, of, switchMap } from 'rxjs';
-import { ApiService } from 'src/app/data/api/api.service';
+import { ApiService } from 'src/app/api/api.service';
+
 import { Customer } from 'src/app/domain/customer/customer.entity';
-import { PageinationState, PaginationStoreService, paginationSources } from 'src/app/pagination/store/pagination-store.store';
+import { PageinationState } from 'src/app/shared-components/pagination/store/pagination-store.store';
 import { refreshSource$ } from 'src/app/shared-stores/reload.store';
 
 
@@ -33,7 +33,6 @@ const initState: CustomerState = {
 export class CustomerStoreService {
 
   apiService = inject(ApiService)
-
   sourceCustomer$ =
     refreshSource$.pipe(
       switchMap(() => this.apiService.getAllCustomers()

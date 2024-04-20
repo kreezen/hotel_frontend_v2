@@ -2,9 +2,10 @@ import { Injectable, inject } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
 import { Source, toSource } from '@state-adapt/rxjs';
 import { switchMap, tap } from 'rxjs';
-import { ApiService } from 'src/app/data/api/api.service';
+import { ApiService } from 'src/app/api/api.service';
+
 import { User } from 'src/app/domain/user/user.entity';
-import { refreshSource$, refreshUserSource$ } from 'src/app/shared-stores/reload.store';
+import { refreshUserSource$ } from 'src/app/shared-stores/reload.store';
 
 export const selectedUserSource$ = new Source<User>('selectedUserSource$');
 

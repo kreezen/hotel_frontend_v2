@@ -21,7 +21,7 @@ export class CreateCustomerComponent {
 
   constructor(formsBuilder: FormBuilder) {
     this.customerFormGroup = this.createCustomerForm(formsBuilder)
-    const asd = toSignal(this.createCustomer$)
+    const auto = toSignal(this.createCustomer$)
   }
 
   createCustomerForm(formsBuilder: FormBuilder): FormGroup<any> {

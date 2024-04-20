@@ -18,7 +18,7 @@ export class CreateUserComponent {
 
   constructor(private fb: FormBuilder) {
     this.userForm = this.createUserForm(this.fb)
-    const asd = toSignal(this.createUser$)
+    const auto = toSignal(this.createUser$)
   }
 
   createUserForm(fb: FormBuilder): FormGroup {
