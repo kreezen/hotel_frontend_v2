@@ -24,7 +24,7 @@ export class CreateTaskStoreService {
         }
         ),
         tap((data) => {
-          if (!(data instanceof Error || HttpErrorResponse)) {
+          if (!(data instanceof Error || data instanceof HttpErrorResponse)) {
             toastMessageSource$.next({ message: 'Task wurde erfolgreich erstellt', type: 'success' })
             refreshSource$.next(true)
           }

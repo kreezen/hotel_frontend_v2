@@ -31,7 +31,7 @@ export class EditTaskStoreService {
         ),
         tap((data) => {
           console.log(data)
-          if (!(data instanceof Error || HttpErrorResponse)) {
+          if (!(data instanceof Error || data instanceof HttpErrorResponse)) {
             toastMessageSource$.next({ message: 'Task wurde geupdatet', type: 'success' })
             refreshSource$.next(true)
           }

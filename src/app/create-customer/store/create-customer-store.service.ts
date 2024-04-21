@@ -31,7 +31,7 @@ export class CreateCustomerStoreService {
         return of(err)
       }),
       tap((data) => {
-        if (!(data instanceof Error || HttpErrorResponse)) {
+        if (!(data instanceof Error || data instanceof HttpErrorResponse)) {
           toastMessageSource$.next({ message: 'Kunde wurde erfolgreich erstellt', type: 'success' })
           refreshSource$.next(true)
         }
