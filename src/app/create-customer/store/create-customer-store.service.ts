@@ -6,6 +6,7 @@ import { refreshSource$ } from 'src/app/shared-stores/reload.store';
 import { CustomerType } from 'src/app/domain/customer/customertype.enum';
 import { Address } from 'src/app/domain/customer/address.entity';
 import { ApiService } from 'src/app/api/api.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface CreateCustomer {
   fistName: string,
@@ -30,7 +31,7 @@ export class CreateCustomerStoreService {
       return of(err)
     }),
     tap((data) => {
-      if (!(data instanceof Error)) {
+      if (!(data instanceof Error || HttpErrorResponse)) {
         toastMessageSource$.next({ message: 'Kunde wurde erfolgreich erstellt', type: 'success' })
         refreshSource$.next(true)
       }

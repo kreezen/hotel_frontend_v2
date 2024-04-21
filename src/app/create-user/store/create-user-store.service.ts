@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Source, toSource } from '@state-adapt/rxjs';
 import { catchError, of, switchMap, tap } from 'rxjs';
@@ -25,7 +26,7 @@ export class CreateUserStoreService {
     }
     ),
     tap((data) => {
-      if (!(data instanceof Error)) {
+      if (!(data instanceof Error || HttpErrorResponse)) {
         toastMessageSource$.next({ message: 'User erfolgreich erstellt', type: 'success' })
         refreshUserSource$.next(true)
       }

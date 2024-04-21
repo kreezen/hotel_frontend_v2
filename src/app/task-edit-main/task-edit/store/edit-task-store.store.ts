@@ -1,7 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
 import { Source, toSource } from '@state-adapt/rxjs';
-import { BehaviorSubject, catchError, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, onErrorResumeNext, switchMap, tap, throwError } from 'rxjs';
 import { ApiService } from 'src/app/api/api.service';
 
 import { Task } from 'src/app/domain/activities/task.entity';
@@ -29,12 +30,11 @@ export class EditTaskStoreService {
     ),
     tap((data) => {
       console.log(data)
-      if (!(data instanceof Error)) {
+      if (!(data instanceof Error || HttpErrorResponse)) {
         toastMessageSource$.next({ message: 'Task wurde geupdatet', type: 'success' })
         refreshSource$.next(true)
       }
     }),
-
   )
 
   taskStore = adapt(initTaskState, {

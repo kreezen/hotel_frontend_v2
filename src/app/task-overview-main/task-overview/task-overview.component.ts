@@ -13,6 +13,4 @@ import { Task } from 'src/app/domain/activities/task.entity';
 export class TaskOverviewComponent {
   @Input() customerTasks: Task[] = [];
   @Output() taskClicked = new EventEmitter<Task>();
-
-
 }

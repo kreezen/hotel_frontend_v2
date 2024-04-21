@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Source } from '@state-adapt/rxjs';
 import { catchError, of, switchMap, tap } from 'rxjs';
@@ -24,7 +25,7 @@ export class CreateTaskStoreService {
     }
     ),
     tap((data) => {
-      if (!(data instanceof Error)) {
+      if (!(data instanceof Error || HttpErrorResponse)) {
         toastMessageSource$.next({ message: 'Task wurde erfolgreich erstellt', type: 'success' })
         refreshSource$.next(true)
       }
