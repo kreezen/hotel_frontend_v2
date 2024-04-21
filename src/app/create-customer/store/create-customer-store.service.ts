@@ -25,16 +25,18 @@ export class CreateCustomerStoreService {
 
   private apiService = inject(ApiService)
   createCustomer$ = createCustomerSource$.pipe(
-    switchMap((createCustomer) => this.apiService.createCustomer(createCustomer.payload)),
-    catchError((err) => {
-      toastMessageSource$.next({ message: 'Kunde konnte nicht erstellt werden', type: 'error' })
-      return of(err)
-    }),
-    tap((data) => {
-      if (!(data instanceof Error || HttpErrorResponse)) {
-        toastMessageSource$.next({ message: 'Kunde wurde erfolgreich erstellt', type: 'success' })
-        refreshSource$.next(true)
-      }
-    })
+    switchMap((createCustomer) => this.apiService.createCustomer(createCustomer.payload).pipe(
+      catchError((err) => {
+        toastMessageSource$.next({ message: 'Kunde konnte nicht erstellt werden', type: 'error' })
+        return of(err)
+      }),
+      tap((data) => {
+        if (!(data instanceof Error || HttpErrorResponse)) {
+          toastMessageSource$.next({ message: 'Kunde wurde erfolgreich erstellt', type: 'success' })
+          refreshSource$.next(true)
+        }
+      })
+    )
+    ),
   )
 }

@@ -19,18 +19,20 @@ export class CreateUserStoreService {
 
   apiService = inject(ApiService);
   createUser$ = createUserSource$.pipe(
-    switchMap((user) => this.apiService.createUser(user.payload)),
-    catchError((err) => {
-      toastMessageSource$.next({ message: 'User konnte nicht erstellt werden', type: 'error' })
-      return of(err)
-    }
-    ),
-    tap((data) => {
-      if (!(data instanceof Error || HttpErrorResponse)) {
-        toastMessageSource$.next({ message: 'User erfolgreich erstellt', type: 'success' })
-        refreshUserSource$.next(true)
+    switchMap((user) => this.apiService.createUser(user.payload).pipe(
+      catchError((err) => {
+        toastMessageSource$.next({ message: 'User konnte nicht erstellt werden', type: 'error' })
+        return of(err)
       }
-    }),
+      ),
+      tap((data) => {
+        if (!(data instanceof Error || HttpErrorResponse)) {
+          toastMessageSource$.next({ message: 'User erfolgreich erstellt', type: 'success' })
+          refreshUserSource$.next(true)
+        }
+      }),
+    )
+    ),
     toSource('[created user] createUser$')
   )
 }

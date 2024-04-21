@@ -22,19 +22,22 @@ export class EditTaskStoreService {
   private apiService = inject(ApiService)
   private taskClickedSource$ = taskClickedSource$.pipe(toSource('[task edit] taskClickedSource$'))
   updateTaskSource$ = updateTaskSource$.pipe(
-    switchMap((newState) => this.apiService.updateTask(newState.payload)),
-    catchError((err) => {
-      toastMessageSource$.next({ message: 'Task konnte nicht geupdatet werden', type: 'error' })
-      return of(err)
-    }
+    switchMap((newState) => this.apiService.updateTask(newState.payload)
+      .pipe(
+        catchError((err) => {
+          toastMessageSource$.next({ message: 'Task konnte nicht geupdatet werden', type: 'error' })
+          return of(err)
+        }
+        ),
+        tap((data) => {
+          console.log(data)
+          if (!(data instanceof Error || HttpErrorResponse)) {
+            toastMessageSource$.next({ message: 'Task wurde geupdatet', type: 'success' })
+            refreshSource$.next(true)
+          }
+        }),
+      )
     ),
-    tap((data) => {
-      console.log(data)
-      if (!(data instanceof Error || HttpErrorResponse)) {
-        toastMessageSource$.next({ message: 'Task wurde geupdatet', type: 'success' })
-        refreshSource$.next(true)
-      }
-    }),
   )
 
   taskStore = adapt(initTaskState, {

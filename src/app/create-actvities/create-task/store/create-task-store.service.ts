@@ -17,18 +17,20 @@ export class CreateTaskStoreService {
   apiService = inject(ApiService)
   createTask$ = createTaskSource$.pipe(
     switchMap(
-      (createTask) => this.apiService.createTask(createTask.payload)
+      (createTask) => this.apiService.createTask(createTask.payload).pipe(
+        catchError((err) => {
+          toastMessageSource$.next({ message: 'Task konnte nicht erstellt werden', type: 'error' })
+          return of(err)
+        }
+        ),
+        tap((data) => {
+          if (!(data instanceof Error || HttpErrorResponse)) {
+            toastMessageSource$.next({ message: 'Task wurde erfolgreich erstellt', type: 'success' })
+            refreshSource$.next(true)
+          }
+        }),
+      )
     ),
-    catchError((err) => {
-      toastMessageSource$.next({ message: 'Task konnte nicht erstellt werden', type: 'error' })
-      return of(err)
-    }
-    ),
-    tap((data) => {
-      if (!(data instanceof Error || HttpErrorResponse)) {
-        toastMessageSource$.next({ message: 'Task wurde erfolgreich erstellt', type: 'success' })
-        refreshSource$.next(true)
-      }
-    }),
+
   )
 }
