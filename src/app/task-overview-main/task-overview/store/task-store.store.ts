@@ -31,10 +31,6 @@ export class CustomerTaskStoreService {
     toSource("[loading task] taskSource$")
   )
 
-  /* constructor() {
-    refreshSource$.next(true);
-  } */
-
   customerTaskStore = adapt(initState, {
     adapter: {
       loadTasks: (state, newState) => {

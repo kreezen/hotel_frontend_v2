@@ -27,7 +27,7 @@ export class CreateCustomerStoreService {
     switchMap((createCustomer) => this.apiService.createCustomer(createCustomer.payload)),
     catchError((err) => {
       toastMessageSource$.next({ message: 'Kunde konnte nicht erstellt werden', type: 'error' })
-      return of(Error(err.message))
+      return of(err)
     }),
     tap((data) => {
       if (!(data instanceof Error)) {

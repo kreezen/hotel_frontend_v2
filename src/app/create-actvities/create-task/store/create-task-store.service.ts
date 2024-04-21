@@ -18,9 +18,9 @@ export class CreateTaskStoreService {
     switchMap(
       (createTask) => this.apiService.createTask(createTask.payload)
     ),
-    catchError(() => {
+    catchError((err) => {
       toastMessageSource$.next({ message: 'Task konnte nicht erstellt werden', type: 'error' })
-      return of(Error('Couldnt create task'))
+      return of(err)
     }
     ),
     tap((data) => {

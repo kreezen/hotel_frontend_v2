@@ -22,9 +22,9 @@ export class EditTaskStoreService {
   private taskClickedSource$ = taskClickedSource$.pipe(toSource('[task edit] taskClickedSource$'))
   updateTaskSource$ = updateTaskSource$.pipe(
     switchMap((newState) => this.apiService.updateTask(newState.payload)),
-    catchError(() => {
+    catchError((err) => {
       toastMessageSource$.next({ message: 'Task konnte nicht geupdatet werden', type: 'error' })
-      return of(Error('Couldnt update task'))
+      return of(err)
     }
     ),
     tap((data) => {
