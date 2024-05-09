@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
 import { Source } from '@state-adapt/rxjs';
 
+export interface paginationOptions {
+  currentPage: number,
+  itemsPerPage: number,
+  totalItems: number
+}
 export interface PageinationState {
   currentPage: number,
   itemsPerPage: number
@@ -9,7 +14,7 @@ export interface PageinationState {
 
 const initPageState: PageinationState = {
   currentPage: 1,
-  itemsPerPage: 10
+  itemsPerPage: 5
 }
 
 // needed if shared state

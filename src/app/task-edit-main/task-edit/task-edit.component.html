@@ -2,47 +2,49 @@
     <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
 
         <form action="#" class="space-y-8" [formGroup]="taskForm">
-            <div *ngIf="task != null">
+            @if(task != null){
 
-                <label for="datepicker" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
-                    DueDate:</label>
-                <app-datepicker (dateChanged)="onDateChanged($event)"
-                    [displaDate]="formatDate(task.dueDate)"></app-datepicker>
-                <div class="w-full flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
-                    <input id="bordered-checkbox-1" type="checkbox" formControlName="isCompleted"
-                        name="bordered-checkbox"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="bordered-checkbox-1"
-                        class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                        Completed</label>
+            <label for="datepicker" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                DueDate:</label>
+            <app-datepicker (dateChanged)="onDateChanged($event)"
+                [displaDate]="formatDate(task.dueDate)"></app-datepicker>
+            <div class="w-full flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+                <input id="bordered-checkbox-1" type="checkbox" formControlName="isCompleted" name="bordered-checkbox"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                <label for="bordered-checkbox-1"
+                    class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Completed</label>
 
-                </div>
-                <div>
-                    <label for="search"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">AssignedTo:</label>
-                    <div class="relative">
-                        <app-search-by [enabledSearch]="searchEnabled" (searchTerm)="onSearchChanges($event)"
-                            placeholder="Username" [selectedString]="selectedUser.username"></app-search-by>
-                        <app-spinner class="absolute end-2.5 bottom-2.5" [appSpinner]="usersState"></app-spinner>
-                    </div>
-                    <app-selectable-list [items]="userSignal()!.users" keyToDisplay="username"
-                        (selectedItem)="onUserSelected($event)"></app-selectable-list>
-                </div>
-                <div class="sm:col-span-2">
-                    <label for="message"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Beschreibung:</label>
-                    <textarea id="message" rows="6" formControlName="description"
-                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Text..."></textarea>
-                </div>
-                <div class="flex justify-center mt-4">
-                    <button (click)="onSubmit()" type="submit" class="py-3 px-5 text-sm font-medium text-center text-black rounded-lg 
-                           bg-blue-500 sm:w-fit hover:bg-blue-700 focus:ring-4 focus:outline-none 
-                           focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Submit
-                    </button>
-                </div>
             </div>
+            <div>
+                <label for="search"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">AssignedTo:</label>
+                <div class="relative">
+                    <app-search-by [enabledSearch]="searchEnabled" (searchTerm)="onSearchChanges($event)"
+                        placeholder="Username" [selectedString]="selectedUser.username"></app-search-by>
+                    <app-spinner class="absolute end-2.5 bottom-2.5" [appSpinner]="usersState"></app-spinner>
+                </div>
+                <app-selectable-list [items]="userSignal()!.users" keyToDisplay="username"
+                    (selectedItem)="onUserSelected($event)"></app-selectable-list>
+            </div>
+            <div class="sm:col-span-2">
+                <label for="message"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Beschreibung:</label>
+                <textarea id="message" rows="6" formControlName="description"
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Text..."></textarea>
+            </div>
+            <div class="flex justify-center mt-4">
+                <button (click)="onSubmit()" type="submit"
+                    class="py-3 px-5 text-sm font-medium text-center text-black rounded-lg 
+                                           bg-blue-500 sm:w-fit hover:bg-blue-700 focus:ring-4 focus:outline-none 
+                                           focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Submit
+                </button>
+            </div>
+
+            }
+
         </form>
     </div>
 </section>

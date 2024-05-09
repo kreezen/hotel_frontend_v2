@@ -3,12 +3,9 @@ import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CustomerStoreService } from './store/customer-store.store';
 import { Customer } from 'src/app/domain/customer/customer.entity';
+import { paginationOptions } from 'src/app/shared-components/pagination/store/pagination-store.store';
 
-export interface paginationOptions {
-  currentPage: number,
-  itemsPerPage: number,
-  totalItems: number
-}
+
 
 @Component({
   selector: 'app-customer-overview',
@@ -21,6 +18,6 @@ export interface paginationOptions {
 
 export class CustomerOverviewComponent {
   @Input() customers: Customer[] = [];
-  @Input() paginationValues: paginationOptions = { currentPage: 1, itemsPerPage: 10, totalItems: 0 };
+  @Input() paginationValues: paginationOptions = { currentPage: 1, itemsPerPage: 5, totalItems: 0 };
 }
 
