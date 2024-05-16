@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -42,6 +41,10 @@ const routes: Routes = [
   {
     path: 'create/user',
     loadComponent: () => import('./create-user/create-user.component').then(m => m.CreateUserComponent)
+  },
+  {
+    path: 'user-overview',
+    loadComponent: () => import('./user-overview-main/user-overview-main.component').then(m => m.UserOverviewMainComponent)
   }
 ];
 

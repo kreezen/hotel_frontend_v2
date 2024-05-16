@@ -4,5 +4,6 @@ export const titles: { [key: string]: string } = {
     '/customer-tasks/edit': 'Edit Customer Task',
     '/customer-tasks/create': 'Create Customer Task',
     '/create/customer': 'Create Customer',
-    '/create/user': 'Create User'
+    '/create/user': 'Create User',
+    '/user-overview': 'User Overview'
 };
