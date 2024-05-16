@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { CustomerTaskOverviewService } from './service/task-overview.service';
 import { SearchComponent } from '../shared-components/search/search.component';
 import { TaskOverviewComponent } from './task-overview/task-overview.component';
+import { deleteTaskSource$ } from './task-overview/store/task-store.store';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-task-overview-main',
@@ -16,5 +18,10 @@ export class TaskOverviewMainComponent {
   searchChange$ = this.customerTaskOverviewService.searchChange$
   customerTasks = this.customerTaskOverviewService.customerTasks
   taskClicked$ = this.customerTaskOverviewService.taskClicked$
+  deleteTaskSource$ = this.customerTaskOverviewService.deleteTask$
+  deleteTaskAuto$ = this.customerTaskOverviewService.deleteTaskAuto$
 
+  constructor() {
+    const auto = toSignal(this.deleteTaskAuto$)
+  }
 }

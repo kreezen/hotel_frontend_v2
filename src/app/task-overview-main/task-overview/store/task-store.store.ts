@@ -1,11 +1,13 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
-import { toSource } from '@state-adapt/rxjs';
-import { switchMap } from 'rxjs';
+import { Source, toSource } from '@state-adapt/rxjs';
+import { catchError, of, switchMap, tap } from 'rxjs';
 import { ApiService } from 'src/app/api/api.service';
 
 import { Task } from 'src/app/domain/activities/task.entity';
 import { refreshSource$ } from 'src/app/shared-stores/reload.store';
+import { toastMessageSource$ } from 'src/app/toast-message/store/toast-message-store.store';
 
 
 export interface TaskState {
@@ -18,6 +20,7 @@ const initState: TaskState = {
   error: ""
 }
 
+export const deleteTaskSource$ = new Source<string>('[delete task] deleteTaskSource$');
 
 
 @Injectable({
@@ -26,7 +29,21 @@ const initState: TaskState = {
 export class CustomerTaskStoreService {
   private apiService = inject(ApiService);
 
-  private taskSource$ = refreshSource$.pipe(
+  deleteTaskSource$ = deleteTaskSource$.pipe(
+    switchMap((val) => this.apiService.deleteTask(val.payload).pipe(
+      catchError((err) => {
+        toastMessageSource$.next({ message: 'Task konnte nicht gelöscht werden', type: 'error' })
+        return of(err)
+      }),
+      tap((data) => {
+        if (!(data instanceof Error || data instanceof HttpErrorResponse)) {
+          toastMessageSource$.next({ message: 'Task wurde erfolgreich gelöscht', type: 'success' })
+          refreshSource$.next(true)
+        }
+      })
+    )),
+  )
+  private getAlltasksSource$ = refreshSource$.pipe(
     switchMap(() => this.apiService.getAllTasks()),
     toSource("[loading task] taskSource$")
   )
@@ -41,7 +58,7 @@ export class CustomerTaskStoreService {
       }
     },
     sources: {
-      loadTasks: this.taskSource$
+      loadTasks: this.getAlltasksSource$
     }
   });
 

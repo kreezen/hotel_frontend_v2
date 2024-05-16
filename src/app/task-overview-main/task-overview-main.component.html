@@ -2,4 +2,5 @@
     <app-search placeholder="search by name" (searchTerm)="searchChange$.next($event)"></app-search>
 
 </div>
-<app-task-overview [customerTasks]="customerTasks()!" (taskClicked)="taskClicked$.next($event)"></app-task-overview>
+<app-task-overview [customerTasks]="customerTasks()!" (editClicked)="taskClicked$.next($event)"
+    (deleteClicked)="deleteTaskSource$.next($event)"></app-task-overview>

@@ -45,6 +45,10 @@ export class Customer {
             json.email
         );
     }
+
+    static dummy(): Customer {
+        return new Customer("id", [], "1234", CustomerType.PERSON, "Max", "Mustermann", { id: 1, street: "Musterstraße", city: "Musterstadt", zipCode: 12345 }, "HJhKs@example.com");
+    }
 }
 
 // TODO: tasks mit desc

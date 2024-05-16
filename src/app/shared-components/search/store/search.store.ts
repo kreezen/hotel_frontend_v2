@@ -7,7 +7,7 @@ import { Source } from '@state-adapt/rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class SearchService {
+export class SearchStoreService {
 
   searchSource$ = new Source<string>('[search string] searchSource$');
   searchStore = adapt("", {

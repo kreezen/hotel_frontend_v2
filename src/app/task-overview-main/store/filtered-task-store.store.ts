@@ -1,14 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { joinStores } from '@state-adapt/rxjs';
 import { CustomerTaskStoreService } from '../task-overview/store/task-store.store';
-import { SearchService } from '../../shared-components/search/store/search.store';
+import { SearchStoreService } from '../../shared-components/search/store/search.store';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilteredCustomerTaskStoreService {
-  private searchService = inject(SearchService);
+  private searchService = inject(SearchStoreService);
   private customerTaskService = inject(CustomerTaskStoreService);
   private searchStore = this.searchService.searchStore;
   private customerTaskStore = this.customerTaskService.customerTaskStore;

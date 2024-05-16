@@ -1,11 +1,12 @@
-<div class="flex">
+<div class="flex mt-2">
     <app-search placeholder="search by lastname" (searchTerm)="searchChange$.next($event)"></app-search>
+    <app-filter-boxes (filterToggle)="filterToggle$.next($event)"></app-filter-boxes>
     <app-pagination class="ml-auto" (changeCurrentPage)="changeCurrentPage$.next($event)"
         (changeItemsPerPage)="changeItemsPerPage$.next($event)"></app-pagination>
 </div>
-<app-filter-boxes (filterToggle)="filterToggle$.next($event)"></app-filter-boxes>
 <app-customer-overview [customers]="customers()!" [paginationValues]="{
     currentPage: paginationState()!.currentPage,
     itemsPerPage: paginationState()!.itemsPerPage,
     totalItems: customers()!.length
-}"></app-customer-overview>
+}" (deleteClicked)="deleteCustomerSource$.next($event)"
+    (editClicked)="editCustomerSource$.next($event)"></app-customer-overview>

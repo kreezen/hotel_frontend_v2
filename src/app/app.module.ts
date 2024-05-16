@@ -16,6 +16,10 @@ import { API_URL, API_BASE_URL } from './api/config/api.config';
 
 const routes: Routes = [
   {
+    path: 'customer/edit',
+    loadComponent: () => import('./update-customer/update-customer.component').then(m => m.UpdateCustomerComponent)
+  },
+  {
     path: 'customer-overview',
     loadComponent: () => import('./customer-overview-main/customer-overview-main.component').then(m => m.CustomerOverviewMainComponent)
   },

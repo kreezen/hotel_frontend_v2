@@ -16,6 +16,7 @@ export class SearchByComponent {
   @Input() placeholder = '';
   @Input() enabledSearch = true;
   @Input() selectedString = '';
+
   searchTermControl = new FormControl('');
 
   onSearch(searchTerm: string) {

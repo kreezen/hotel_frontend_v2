@@ -16,4 +16,8 @@ export interface IApi {
     createCustomer(customer: CreateCustomer): Observable<Customer>
     createUser(createUser: CreateUser): Observable<User>
     getAllUsers(): Observable<Array<User>>
+    deleteCustomer(id: string): Observable<Customer>
+    deleteTask(id: string): Observable<Task>
+    updateCustomer(customer: Customer): Observable<Customer>
+    deleteUser(id: string): Observable<User>
 }

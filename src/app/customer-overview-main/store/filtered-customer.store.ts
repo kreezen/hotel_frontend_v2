@@ -4,15 +4,15 @@ import { CustomerStoreService } from '../customer-overview/store/customer-store.
 import { Filters } from '../filter-boxes/filters/filters.interface';
 import { FilterService } from '../filter-boxes/store/filter.store';
 import { filterFunctions } from '../filter-boxes/filters/filter.functions';
-import { SearchService } from '../../shared-components/search/store/search.store';
+import { SearchStoreService } from '../../shared-components/search/store/search.store';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FilteredCustomerService {
+export class FilteredCustomerStoreService {
   private filterService = inject(FilterService);
   private customerService = inject(CustomerStoreService);
-  private searchService = inject(SearchService);
+  private searchService = inject(SearchStoreService);
 
   private filterStore = this.filterService.filterStore;
   private customerStore = this.customerService.customerStore;

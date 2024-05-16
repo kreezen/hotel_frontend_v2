@@ -18,6 +18,43 @@ export class ApiService implements IApi {
 
   private baseUrl = inject(API_URL);
   constructor(private http: HttpClient) { }
+  deleteCustomer(id: string): Observable<Customer> {
+    return this.http.delete<Customer>(`${this.baseUrl}/customers/delete/${id}`).pipe(
+      map(
+        val => {
+          return Customer.fromJson(val)
+        }
+      )
+    )
+  }
+  deleteTask(id: string): Observable<Task> {
+    return this.http.delete<Task>(`${this.baseUrl}/activities/task/delete/${id}`).pipe(
+      map(
+        val => {
+          return Task.fromJson(val)
+        }
+      )
+    )
+  }
+  updateCustomer(customer: Customer): Observable<Customer> {
+    return this.http.post<Customer>(`${this.baseUrl}/customers/update`, customer).pipe(
+      map(
+        val => {
+          return Customer.fromJson(val)
+        }
+      ),
+      tap((res) => console.log(res)),
+    )
+  }
+  deleteUser(id: string): Observable<User> {
+    return this.http.delete<User>(`${this.baseUrl}/users/delete/${id}`).pipe(
+      map(
+        val => {
+          return User.fromJson(val)
+        }
+      )
+    )
+  }
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/users`).pipe(
       map(

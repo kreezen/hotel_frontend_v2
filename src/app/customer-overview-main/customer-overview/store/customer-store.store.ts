@@ -1,12 +1,14 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { adapt } from '@state-adapt/angular';
-import { toSource } from '@state-adapt/rxjs';
-import { map, catchError, of, switchMap } from 'rxjs';
+import { Source, toSource } from '@state-adapt/rxjs';
+import { map, catchError, of, switchMap, tap } from 'rxjs';
 import { ApiService } from 'src/app/api/api.service';
 
 import { Customer } from 'src/app/domain/customer/customer.entity';
 import { PageinationState } from 'src/app/shared-components/pagination/store/pagination-store.store';
 import { refreshSource$ } from 'src/app/shared-stores/reload.store';
+import { toastMessageSource$ } from 'src/app/toast-message/store/toast-message-store.store';
 
 
 export interface CustomerState {
@@ -24,6 +26,7 @@ const initState: CustomerState = {
   error: "",
 }
 
+export const deleteCustomerSource$ = new Source<string>('[delete customer] deleteCustomerSource$');
 
 
 @Injectable({
@@ -33,7 +36,22 @@ const initState: CustomerState = {
 export class CustomerStoreService {
 
   apiService = inject(ApiService)
-  sourceCustomer$ =
+  deleteCustomerSource$ = deleteCustomerSource$.pipe(
+    switchMap((val) => this.apiService.deleteCustomer(val.payload).pipe(
+      catchError((err) => {
+        toastMessageSource$.next({ message: 'Kunde konnte nicht gelöscht werden', type: 'error' })
+        return of(err)
+      }),
+      tap((data) => {
+        if (!(data instanceof Error || data instanceof HttpErrorResponse)) {
+          toastMessageSource$.next({ message: 'Kunde erfolgreich gelöscht', type: 'success' })
+          refreshSource$.next(true)
+        }
+      })
+    )
+    ));
+
+  getAllCustomersSource$ =
     refreshSource$.pipe(
       switchMap(() => this.apiService.getAllCustomers()
         .pipe(
@@ -55,9 +73,6 @@ export class CustomerStoreService {
         )),
     )
 
-  /* constructor() {
-    refreshSource$.next();
-  } */
 
   customerStore = adapt(initState, {
     adapter: {
@@ -71,7 +86,7 @@ export class CustomerStoreService {
       }
     },
     sources: {
-      loadCustomers: this.sourceCustomer$
+      loadCustomers: this.getAllCustomersSource$
     }
   })
 

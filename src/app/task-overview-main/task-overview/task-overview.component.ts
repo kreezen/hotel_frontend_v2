@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Task } from 'src/app/domain/activities/task.entity';
@@ -13,5 +13,14 @@ import { Task } from 'src/app/domain/activities/task.entity';
 })
 export class TaskOverviewComponent {
   @Input() customerTasks: Task[] = [];
-  @Output() taskClicked = new EventEmitter<Task>();
+  editClicked = output<Task>()
+  deleteClicked = output<string>()
+
+  onEdit(task: Task) {
+    this.editClicked.emit(task)
+  }
+
+  onDelete(id: string) {
+    this.deleteClicked.emit(id)
+  }
 }

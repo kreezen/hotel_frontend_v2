@@ -30,7 +30,6 @@ export class CreateUserComponent {
   onSubmit() {
     if (this.userForm.valid) {
       const createUser = this.userForm.value
-      console.log(createUser)
       createUserSource$.next(createUser)
     }
   }

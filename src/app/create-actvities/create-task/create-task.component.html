@@ -1,22 +1,21 @@
 <section class="bg-white dark:bg-gray-900">
-    <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
-
-        <form action="#" class="space-y-8" [formGroup]="taskForm">
+    <div class="mt-4 mx-auto max-w-screen-md">
+        <form action="#" class="space-y-2" [formGroup]="taskForm">
             <label for="datepicker"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">DueDate:</label>
+                class="block text-sm font-medium text-gray-900 dark:text-gray-400">Fälligkeitsdatum:</label>
             <app-datepicker (dateChanged)="onDateChanged($event)" class="w-full"></app-datepicker>
             <div>
-                <label for="customer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Kunde
+                <label for="customer" class="block text-sm font-medium text-gray-900 dark:text-gray-400">Kunde
                     angeben:</label>
                 <div class="relative">
                     <app-search-by [enabledSearch]="searchEnabled" (searchTerm)="onSearchCustomerChanges($event)"
-                        [selectedString]="selectedCustomer" placeholder="Customer Lastname"></app-search-by>
+                        [selectedString]="selectedCustomer" placeholder="Nachname des Kunden"></app-search-by>
                     <app-spinner class="absolute end-2.5 bottom-2.5" [appSpinner]="customersState"></app-spinner>
                 </div>
                 <app-selectable-list [items]="customerSignal()!.customers" keyToDisplay="lastName"
                     (selectedItem)="onSelectedCustomer($event)"></app-selectable-list>
 
-                <label for="user" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">User
+                <label for="user" class="block text-sm font-medium text-gray-900 dark:text-gray-400">User
                     zuteilen:</label>
                 <div class="relative">
                     <app-search-by [enabledSearch]="searchEnabled" (searchTerm)="onSearchUserChanges($event)"
@@ -27,18 +26,15 @@
                     (selectedItem)="onUserSelected($event)"></app-selectable-list>
             </div>
             <div class="sm:col-span-2">
-                <label for="message"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Beschreibung:</label>
+                <label for="message" class="block text-sm font-medium text-gray-900 dark:text-gray-400">Aufgaben
+                    Beschreibung:</label>
                 <textarea id="message" rows="6" formControlName="description"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Text..."></textarea>
             </div>
             <div class="flex justify-center">
-                <button (click)="onSubmit()" type="submit" class="py-3 px-5 text-sm font-medium text-center text-black rounded-lg 
-                           bg-blue-500 sm:w-fit hover:bg-blue-700 focus:ring-4 focus:outline-none 
-                           focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Submit
-                </button>
+                <button type="button" (click)="onSubmit()" type="submit"
+                    class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">Submit</button>
             </div>
         </form>
     </div>
